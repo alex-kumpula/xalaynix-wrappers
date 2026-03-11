@@ -1,12 +1,9 @@
 { inputs, ... }:
 {
-  # flake.wrappers.xalaynix = 
-  # { lib, ... }: 
-  # {
-  #   options.xalaynix.enable = lib.mkOption {
-  #     type = lib.types.bool;
-  #     default = false;
-  #     description = "Enable Xalaynix configuration.";
-  #   };
-  # };
+  flake.wrappers.alacritty = 
+  { pkgs, wlib, ... }: {
+    imports = [ wlib.wrapperModules.alacritty ];
+    settings.terminal.shell.program = "${pkgs.zsh}/bin/zsh";
+    settings.terminal.shell.args = [ "-l" ];
+  };
 }
