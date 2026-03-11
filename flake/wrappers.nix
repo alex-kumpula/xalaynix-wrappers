@@ -1,15 +1,6 @@
-{ lib, flake-parts-lib, inputs, ... }:
+{ inputs, ... }:
 {
-  # Required to define the `wrappers` flake output.
-  # options = {
-  #   flake = flake-parts-lib.mkSubmoduleOptions {
-  #     wrappers = lib.mkOption {
-  #       type = with lib.types; lazyAttrsOf raw;
-  #       default = { };
-  #     };
-  #   };
-  # };
-
+  # Import the nix-wrapper-modules flake
   flake-file = {
     inputs = {
       wrapper-modules = {
@@ -19,5 +10,6 @@
     };
   };
 
+  # Import the flake parts module for nix-wrapper-modules
   imports = [ inputs.wrapper-modules.flakeModules.wrappers ];
 }
