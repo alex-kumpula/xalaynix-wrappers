@@ -3,7 +3,7 @@
   flake-file = {
     inputs = {
       niri = {
-        url = "github:YaLTeR/niri?ref=wip";
+        url = "github:niri-wm/niri?ref=wip/branch";
         inputs.nixpkgs.follows = "nixpkgs";
       };
     };
