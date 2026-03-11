@@ -141,7 +141,8 @@
         "nixpkgs-lib": [
           "nixpkgs"
         ],
-        "systems": "systems"
+        "systems": "systems",
+        "wrapper-modules": "wrapper-modules"
       }
     },
     "systems": {
@@ -156,6 +157,26 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "wrapper-modules": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1773169062,
+        "narHash": "sha256-yPjMc8TOHs26aPsb2niFiY6gKEUe2OEE3QVbY+zmSYY=",
+        "owner": "BirdeeHub",
+        "repo": "nix-wrapper-modules",
+        "rev": "07f3d4bfbc9af7b121c5f19aaa8d80e2a6707913",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BirdeeHub",
+        "repo": "nix-wrapper-modules",
         "type": "github"
       }
     }
