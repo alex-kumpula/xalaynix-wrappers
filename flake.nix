@@ -37,7 +37,7 @@
     import-tree.url = "github:vic/import-tree";
     niri = {
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:YaLTeR/niri?ref=wip";
+      url = "github:niri-wm/niri?ref=wip/branch";
     };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-lib.follows = "nixpkgs";
