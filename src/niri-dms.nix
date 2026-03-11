@@ -9,7 +9,7 @@
   in
   {
     imports = [ wlib.wrapperModules.niri ];
-    config.package = niriWipPkg;
+    config.package = lib.mkForce niriWipPkg;
     config.settings.binds = {
       "Mod+T".spawn-sh = "${alacrittyPkg}/bin/alacritty";
       "Mod+D".spawn-sh = "${dmsPkg}/bin/dms run --session";
