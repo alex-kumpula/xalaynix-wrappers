@@ -19,10 +19,13 @@
         "run"
         "--session"
       ]
+      [
+        "export" 
+        "PATH='$PATH:${dmsPkg}/bin'"
+      ]
     ];
     config.env = {
       GDK_BACKEND = "wayland";
     };
-    config.env.shellAliases = "alias dms='${dmsPkg}/bin/dms'";
   };
 }
