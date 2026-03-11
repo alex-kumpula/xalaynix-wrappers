@@ -38,6 +38,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-lib.follows = "nixpkgs";
     systems.url = "github:nix-systems/default";
+    wrapper-modules = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:BirdeeHub/nix-wrapper-modules";
+    };
   };
 
 }

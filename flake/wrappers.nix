@@ -19,5 +19,5 @@
     };
   };
 
-  # imports = [ inputs.wrapper-modules.flakeModules.wrappers ];
+  imports = [ inputs.wrapper-modules.flakeModules.wrappers ];
 }
