@@ -35,6 +35,10 @@
       url = "github:hercules-ci/flake-parts";
     };
     import-tree.url = "github:vic/import-tree";
+    niri = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:YaLTeR/niri?ref=wip";
+    };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-lib.follows = "nixpkgs";
     systems.url = "github:nix-systems/default";
