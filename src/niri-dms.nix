@@ -14,16 +14,7 @@
     };
     config.settings.spawn-at-startup = [
       "${alacrittyPkg}/bin/alacritty"
-      # [
-      #   "${dmsPkg}/bin/dms"
-      #   "run"
-      #   "--session"
-      # ]
-      # This makes GDK_BACKEND and other env vars available to systemd services
-    [ "dbus-update-activation-environment" "--systemd" "GDK_BACKEND" "PATH" ]
-    
-    # Then start your service
-    [ "systemctl" "--user" "start" "my-dms-service.service" ]
+      ["${dmsPkg}/bin/dms" "run" "--session"]
     ];
     config.env = {
       GDK_BACKEND = "wayland";
