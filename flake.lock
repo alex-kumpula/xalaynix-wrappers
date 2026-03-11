@@ -92,6 +92,28 @@
         "type": "github"
       }
     },
+    "niri": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1773171230,
+        "narHash": "sha256-ZiGGjRL2H67GcL6BvZV99khW++aHpJ2NA4n71qZiJ9A=",
+        "owner": "niri-wm",
+        "repo": "niri",
+        "rev": "4a7e443b6c816e4f673f6e25cc0a5aa37697d667",
+        "type": "github"
+      },
+      "original": {
+        "owner": "niri-wm",
+        "ref": "wip/branch",
+        "repo": "niri",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1768940263,
@@ -137,12 +159,34 @@
         "flake-file": "flake-file",
         "flake-parts": "flake-parts",
         "import-tree": "import-tree",
+        "niri": "niri",
         "nixpkgs": "nixpkgs",
         "nixpkgs-lib": [
           "nixpkgs"
         ],
         "systems": "systems",
         "wrapper-modules": "wrapper-modules"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "niri",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1757989933,
+        "narHash": "sha256-9cpKYWWPCFhgwQTww8S94rTXgg8Q8ydFv9fXM6I8xQM=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "8249aa3442fb9b45e615a35f39eca2fe5510d7c3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
       }
     },
     "systems": {
