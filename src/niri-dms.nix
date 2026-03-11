@@ -4,7 +4,7 @@
   { pkgs, wlib, ... }: {
     imports = [ wlib.wrapperModules.niri ];
     settings.binds = {
-      "Mod+T".spawn-sh = "${inputs.self.packages.${pkgs.system}.alacritty-example}/bin/alacritty -c 'echo ${inputs.dms.packages.${pkgs.system}.dms-shell}'";
+      "Mod+T".spawn-sh = "${inputs.self.packages.${pkgs.system}.alacritty-example}/bin/alacritty -c 'echo test'";
       "Mod+D".spawn-sh = "${inputs.dms.packages.${pkgs.system}.dms-shell}/bin/dms run --session";
     };
     settings.spawn-at-startup = [
