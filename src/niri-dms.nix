@@ -15,5 +15,8 @@
       "${inputs.self.packages.${pkgs.system}.alacritty-example}/bin/alacritty"
       "${inputs.dms.packages.${pkgs.system}.dms-shell}/bin/dms"
     ];
+    config.env = {
+      GDK_BACKEND = "wayland";
+    };
   };
 }
