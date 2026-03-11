@@ -1,4 +1,4 @@
-{ inputs, config, lib, flake-parts-lib, ... }:
+{ lib, flake-parts-lib, ... }:
 {
   # Required to define `lib` in multiple files.
   # Otherwise:
