@@ -3,7 +3,7 @@
   flake.wrappers.niri-dms = 
   { pkgs, wlib, ... }: {
     imports = [ wlib.wrapperModules.niri ];
-    settings.binds = {
+    config.settings.binds = {
       "Mod+T".spawn-sh = "${inputs.self.packages.${pkgs.system}.alacritty-example}/bin/alacritty -e sh -c 'echo ${inputs.dms.packages.${pkgs.system}.default}; read'";
       # "Mod+D".spawn-sh = "${inputs.dms.packages.${pkgs.system}.dms-shell}/bin/dms run --session";
       "Mod+D".spawn-sh = let
@@ -11,7 +11,7 @@
       in 
         "QT_COMPOSE_CACHE_DIR=$XDG_RUNTIME_DIR QT_QPA_PLATFORM=wayland ${dmsPkg}/bin/dms run --session";
     };
-    settings.spawn-at-startup = [
+    config.settings.spawn-at-startup = [
       "${inputs.self.packages.${pkgs.system}.alacritty-example}/bin/alacritty"
       "${inputs.dms.packages.${pkgs.system}.dms-shell}/bin/dms"
     ];
