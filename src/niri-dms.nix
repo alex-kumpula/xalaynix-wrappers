@@ -13,7 +13,6 @@
       "Mod+D".spawn-sh = "${dmsPkg}/bin/dms run --session";
     };
     config.settings.spawn-at-startup = [
-      "${alacrittyPkg}/bin/alacritty"
       ["${dmsPkg}/bin/dms" "run" "--session"]
     ];
     config.env = {
