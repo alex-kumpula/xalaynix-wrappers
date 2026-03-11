@@ -9,7 +9,7 @@
       "Mod+D".spawn-sh = let
         dmsPkg = inputs.dms.packages.${pkgs.system}.dms-shell;
       in 
-        "GDK_BACKEND=wayland ${dmsPkg}/bin/dms run";
+        "${dmsPkg}/bin/dms run";
     };
     config.settings.spawn-at-startup = [
       "${inputs.self.packages.${pkgs.system}.alacritty-example}/bin/alacritty"
