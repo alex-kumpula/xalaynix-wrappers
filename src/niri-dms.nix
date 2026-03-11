@@ -1,7 +1,7 @@
 { inputs, outputs, ... }:
 {
   flake.wrappers.niri-dms = 
-  { pkgs, wlib, ... }: 
+  { pkgs, wlib, lib, ... }: 
   let
     dmsPkg = inputs.dms.packages.${pkgs.system}.dms-shell;
     alacrittyPkg = inputs.self.packages.${pkgs.system}.alacritty-example;
@@ -22,6 +22,7 @@
     ];
     config.env = {
       GDK_BACKEND = "wayland";
+      PATH = "${lib.makeBinPath [ dmsPkg ]}:$PATH";
     };
   };
 }
