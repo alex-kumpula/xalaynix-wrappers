@@ -22,7 +22,12 @@
     ];
     config.env = {
       GDK_BACKEND = "wayland";
-      PATH = "${lib.makeBinPath [ dmsPkg ]}:$PATH";
+      PATH = lib.makeBinPath [ 
+        dmsPkg 
+        pkgs.coreutils 
+        pkgs.bash 
+        pkgs.util-linux 
+      ] + ":$PATH";
     };
   };
 }
