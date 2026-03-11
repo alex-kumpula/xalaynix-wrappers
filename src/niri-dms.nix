@@ -5,7 +5,11 @@
     imports = [ wlib.wrapperModules.niri ];
     settings.binds = {
       "Mod+T".spawn-sh = "${inputs.self.packages.${pkgs.system}.alacritty-example}/bin/alacritty -e sh -c 'echo ${inputs.dms.packages.${pkgs.system}.default}; read'";
-      "Mod+D".spawn-sh = "${inputs.dms.packages.${pkgs.system}.dms-shell}/bin/dms run --session";
+      # "Mod+D".spawn-sh = "${inputs.dms.packages.${pkgs.system}.dms-shell}/bin/dms run --session";
+      "Mod+D".spawn-sh = let
+        dmsPkg = inputs.dms.packages.${pkgs.system}.dms-shell;
+      in 
+        "QT_COMPOSE_CACHE_DIR=$XDG_RUNTIME_DIR QT_QPA_PLATFORM=wayland ${dmsPkg}/bin/dms run --session";
     };
     settings.spawn-at-startup = [
       "${inputs.self.packages.${pkgs.system}.alacritty-example}/bin/alacritty"
