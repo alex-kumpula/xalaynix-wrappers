@@ -10,7 +10,7 @@
 
     config.env = {
       TESTVAR = "Hello :D";
-      WRAPPED_ZSH = "${inputs.self.packages.${pkgs.system}.starship}/bin/zsh";
+      WRAPPED_ZSH = "${inputs.self.packages.${pkgs.system}.zsh}/bin/zsh";
     };
   };
 }
