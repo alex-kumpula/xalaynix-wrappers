@@ -5,7 +5,7 @@
       
       # Point this to the folder containing your starship.toml 
       # and any other related files (e.g., ./starship-src)
-      src = ./src;
+      src = ./config;
 
       # We don't need a compiler for a bunch of .toml files
       dontBuild = true;
