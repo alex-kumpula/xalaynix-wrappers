@@ -10,7 +10,7 @@
 
     # Point to your starship.toml file in the Nix store
     config.env = {
-      STARSHIP_CONFIG = "${inputs.self.packages.${pkgs.system}.starship-config}";
+      STARSHIP_CONFIG = "${inputs.self.packages.${pkgs.system}.starship-config}/starship.toml";
     };
   };
 }
