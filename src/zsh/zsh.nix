@@ -8,7 +8,7 @@
 
     config.env = {
       ZDOTDIR = "${./config}";
-      PATH = pkgs.lib.makeBinPath [ self.wrappers.${pkgs.system}.starship.dest ];
+      PATH = pkgs.lib.makeBinPath [ self.packages.${pkgs.system}.alacritty-example ];
     };
   };
 }
