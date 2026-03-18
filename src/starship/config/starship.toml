@@ -1,47 +1,25 @@
-# --- General Config ---
-add_newline = true # A newline actually helps separate command outputs visually
-format = """
-[░▒▓](#9A348E)\
-$directory\
-[](fg:#9A348E bg:#DA627D)\
-$git_branch\
-$git_status\
-[](fg:#DA627D bg:#FCA311)\
-$nix_shell\
-[](fg:#FCA311 bg:#064D65)\
-$character\
-[ ](fg:#064D65)\
-"""
+add_newline = true
+format = "$shlvl$shell$username$hostname$nix_shell$git_branch$git_commit$git_state$git_status$directory$jobs$cmd_duration\n$character"
 
-# --- Modules ---
+[shlvl]
+disabled = false
+symbol = "ﰬ"
+style = "bright-red bold"
 
-[directory]
-style = "bg:#9A348E fg:#000000"
-format = "[ $path ]($style)"
-truncation_length = 3
-fish_style_pwd_dir_length = 1
+[shell]
+disabled = false
+format = "$indicator"
+fish_indicator = ""
+bash_indicator = "[BASH](bright-white) "
+zsh_indicator = "[ZSH](bright-white) "
 
-[git_branch]
-symbol = ""
-style = "bg:#DA627D fg:#000000"
-format = "[[ $symbol $branch ]($style)]($style)"
+[username]
+show_always = true
+format = "[$user]($style)@"
+style_user = "bright-white bold"
+style_root = "bright-red bold"
 
-[git_status]
-style = "bg:#DA627D fg:#000000"
-format = "[[($all_status$ahead_behind )]($style)]($style)"
-
-[nix_shell]
-symbol = " "
-style = "bg:#FCA311 fg:#000000"
-format = "[ $symbol$state ]($style)"
-
-[character]
-success_symbol = "[ ⚡ ](bg:#064D65 fg:#2ECC71)"
-error_symbol = "[ ✖ ](bg:#064D65 fg:#E74C3C)"
-
-# --- Cloud/Tooling (Optional) ---
-[aws]
-symbol = "  "
-
-[python]
-symbol = " "
+[hostname]
+ssh_only = false
+format = "[$hostname]($style) "
+style = "bright-white bold"
