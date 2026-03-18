@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ ... }:
 {
   flake.wrappers.alacritty-example = 
   { pkgs, wlib, ... }: {

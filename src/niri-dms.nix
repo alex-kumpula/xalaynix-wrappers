@@ -1,4 +1,4 @@
-{ inputs, outputs, ... }:
+{ inputs, ... }:
 {
   flake.wrappers.niri-dms = 
   { pkgs, wlib, lib, ... }: 
