@@ -10,7 +10,7 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_REDUCE_BLANKS
 
 
-source ./prompt.zsh
+source "$ZDOTDIR/prompt.zsh"
 
 
 
