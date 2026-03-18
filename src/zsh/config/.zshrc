@@ -33,8 +33,8 @@ alias ..='cd ..'
 
 # --- Prompt ---
 # Initialize Starship if it's in your PATH
-if command -v starship &> /dev/null; then
-    eval "$(starship init zsh)"
+if command -v $WRAPPED_STARSHIP_BIN &> /dev/null; then
+    eval "$($WRAPPED_STARSHIP_BIN init zsh)"
 fi
 
 # --- Useful Functions ---
