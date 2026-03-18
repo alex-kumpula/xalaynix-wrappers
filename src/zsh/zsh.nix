@@ -1,4 +1,4 @@
-{ ... }:
+{ self, ... }:
 {
   flake.wrappers.zsh = 
   { pkgs, wlib, ... }: {
@@ -8,6 +8,7 @@
 
     config.env = {
       ZDOTDIR = "${./config}";
+      PATH = pkgs.lib.makeBinPath [ self.wrappers.${pkgs.system}.starship.dest ];
     };
   };
 }

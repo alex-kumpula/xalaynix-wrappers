@@ -1,0 +1,15 @@
+# Don't print a new line at the start of the prompt
+add_newline = false
+
+# Custom symbols for a cleaner look
+[character]
+success_symbol = "[➜](bold green)"
+error_symbol = "[➜](bold red)"
+
+[directory]
+truncation_length = 3
+fish_style_pwd_dir_length = 1
+
+[nix_shell]
+symbol = "❄️ "
+format = "via [$symbol$state]($style) "

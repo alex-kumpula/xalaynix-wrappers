@@ -33,9 +33,9 @@ alias ..='cd ..'
 
 # --- Prompt ---
 # Initialize Starship if it's in your PATH
-# if command -v starship &> /dev/null; then
-#     eval "$(starship init zsh)"
-# fi
+if command -v starship &> /dev/null; then
+    eval "$(starship init zsh)"
+fi
 
 # --- Useful Functions ---
 # Create a directory and enter it immediately
