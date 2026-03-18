@@ -15,6 +15,7 @@
       ZDOTDIR = "${inputs.self.packages.${pkgs.system}.zsh-config}";
       WRAPPED_STARSHIP_BIN_DIR = "${inputs.self.packages.${pkgs.system}.starship}/bin";
       AUTOSUGGEST_STRATEGY = "history,completion";
+      AUTOSUGGEST_SRC = "${pkgs.zsh-autosuggestions}";
     };
   };
 }
