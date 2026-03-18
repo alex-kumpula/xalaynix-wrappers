@@ -6,6 +6,8 @@
 
     config.package = pkgs.wezterm;
 
+    config.flags."--config-file" = "./wezterm.lua";
+
     config.env = {
       TESTVAR = "Hello :D";
     };
