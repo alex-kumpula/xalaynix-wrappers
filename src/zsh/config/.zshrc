@@ -33,8 +33,8 @@ alias grep='grep --color=auto'
 alias ..='cd ..'
 
 # --- Prompt ---
-if [[ -n "$WRAPPED_STARSHIP_BIN" ]]; then
-    export PATH="$WRAPPED_STARSHIP_BIN:$PATH"
+if [[ -n "$WRAPPED_STARSHIP_BIN_DIR" ]]; then
+    export PATH="$WRAPPED_STARSHIP_BIN_DIR:$PATH"
 fi
 if command -v starship &> /dev/null; then
     eval "$(starship init zsh)"

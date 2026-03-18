@@ -10,7 +10,7 @@
 
     config.env = {
       ZDOTDIR = "${./config}";
-      WRAPPED_STARSHIP_BIN = "${inputs.self.packages.${pkgs.system}.starship}/bin/starship";
+      WRAPPED_STARSHIP_BIN_DIR = "${inputs.self.packages.${pkgs.system}.starship}/bin";
     };
   };
 }
