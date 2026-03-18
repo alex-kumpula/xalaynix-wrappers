@@ -1,4 +1,4 @@
-{ ... }:
+{ inputs,... }:
 {
   flake.wrappers.starship = 
   { pkgs, wlib, ... }: {
@@ -9,8 +9,8 @@
     config.package = pkgs.starship;
 
     # Point to your starship.toml file in the Nix store
-    config.env = {
-      STARSHIP_CONFIG = "${./starship.toml}";
-    };
+    # config.env = {
+    #   STARSHIP_CONFIG = "${./starship.toml}";
+    # };
   };
 }
