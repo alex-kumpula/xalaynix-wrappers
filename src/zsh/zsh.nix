@@ -6,9 +6,10 @@
 
     config.package = pkgs.zsh;
 
+    config.extraPackages = [ inputs.self.packages.${pkgs.system}.starship ];
+
     config.env = {
       ZDOTDIR = "${./config}";
-      PATH = pkgs.lib.makeBinPath [ inputs.self.packages.${pkgs.system}.alacritty-example ];
     };
   };
 }
