@@ -10,9 +10,6 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_REDUCE_BLANKS
 
 
-export PATH="${WRAPPED_STARSHIP_BIN%/*}:$PATH"
-
-
 # --- Basic Keybindings ---
 # Use emacs-style keybindings (standard for most)
 bindkey -e
