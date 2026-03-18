@@ -40,15 +40,10 @@ alias ..='cd ..'
 # fi
 
 if [[ -x "$WRAPPED_STARSHIP_BIN" ]]; then
-    # 1. Export the config path again just to be absolutely sure
-    export STARSHIP_CONFIG="$STARSHIP_CONFIG"
-
-    # 2. Run the init but CAPTURE the output
-    # We replace the bare 'starship' command with the absolute path 
-    # inside the generated script before eval-ing it.
-    eval "$($WRAPPED_STARSHIP_BIN init zsh | sed "s/starship prompt/\"$WRAPPED_STARSHIP_BIN\" prompt/g")"
+    # We use '|' as the delimiter for sed so the slashes in the path don't break it
+    eval "$($WRAPPED_STARSHIP_BIN init zsh | sed "s|starship prompt|\"$WRAPPED_STARSHIP_BIN\" prompt|g")"
     
-    # 3. Alias as a final fallback
+    # Alias for manual commands
     alias starship="$WRAPPED_STARSHIP_BIN"
 fi
 
