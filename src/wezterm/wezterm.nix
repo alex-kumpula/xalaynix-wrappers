@@ -1,4 +1,4 @@
-{ ... }:
+{ inputs, ... }:
 {
   flake.wrappers.wezterm = 
   { pkgs, wlib, ... }: {
@@ -10,6 +10,7 @@
 
     config.env = {
       TESTVAR = "Hello :D";
+      WRAPPED_ZSH = "${inputs.self.packages.${pkgs.system}.starship}/bin/zsh";
     };
   };
 }
