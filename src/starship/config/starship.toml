@@ -1,15 +1,47 @@
-# Don't print a new line at the start of the prompt
-add_newline = false
+# --- General Config ---
+add_newline = true # A newline actually helps separate command outputs visually
+format = """
+[░▒▓](#9A348E)\
+$directory\
+[](fg:#9A348E bg:#DA627D)\
+$git_branch\
+$git_status\
+[](fg:#DA627D bg:#FCA311)\
+$nix_shell\
+[](fg:#FCA311 bg:#064D65)\
+$character\
+[ ](fg:#064D65)\
+"""
 
-# Custom symbols for a cleaner look
-[character]
-success_symbol = "[➜](bold green)"
-error_symbol = "[➜](bold red)"
+# --- Modules ---
 
 [directory]
+style = "bg:#9A348E fg:#000000"
+format = "[ $path ]($style)"
 truncation_length = 3
 fish_style_pwd_dir_length = 1
 
+[git_branch]
+symbol = ""
+style = "bg:#DA627D fg:#000000"
+format = "[[ $symbol $branch ]($style)]($style)"
+
+[git_status]
+style = "bg:#DA627D fg:#000000"
+format = "[[($all_status$ahead_behind )]($style)]($style)"
+
 [nix_shell]
-symbol = "❄️ "
-format = "via [$symbol$state]($style) "
+symbol = " "
+style = "bg:#FCA311 fg:#000000"
+format = "[ $symbol$state ]($style)"
+
+[character]
+success_symbol = "[ ⚡ ](bg:#064D65 fg:#2ECC71)"
+error_symbol = "[ ✖ ](bg:#064D65 fg:#E74C3C)"
+
+# --- Cloud/Tooling (Optional) ---
+[aws]
+symbol = "  "
+
+[python]
+symbol = " "
