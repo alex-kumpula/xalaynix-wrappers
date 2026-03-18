@@ -33,18 +33,11 @@ alias grep='grep --color=auto'
 alias ..='cd ..'
 
 # --- Prompt ---
-# Initialize Starship if it's in your PATH
-# if [[ -x "$WRAPPED_STARSHIP_BIN" ]]; then
-#     alias starship="$WRAPPED_STARSHIP_BIN"
-#     eval "$($WRAPPED_STARSHIP_BIN init zsh)"
-# fi
-
-if [[ -x "$WRAPPED_STARSHIP_BIN" ]]; then
-    # We use '|' as the delimiter for sed so the slashes in the path don't break it
-    eval "$($WRAPPED_STARSHIP_BIN init zsh | sed "s|starship prompt|\"$WRAPPED_STARSHIP_BIN\" prompt|g")"
-    
-    # Alias for manual commands
-    alias starship="$WRAPPED_STARSHIP_BIN"
+if [[ -n "$WRAPPED_STARSHIP_BIN" ]]; then
+    export PATH="$WRAPPED_STARSHIP_BIN:$PATH"
+fi
+if command -v starship &> /dev/null; then
+    eval "$(starship init zsh)"
 fi
 
 # --- Useful Functions ---
