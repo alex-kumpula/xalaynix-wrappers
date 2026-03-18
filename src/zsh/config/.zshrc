@@ -10,6 +10,10 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_REDUCE_BLANKS
 
 
+source ./prompt.zsh
+
+
+
 # --- Basic Keybindings ---
 # Use emacs-style keybindings (standard for most)
 bindkey -e
@@ -31,14 +35,6 @@ alias ll='eza -lh'
 alias la='eza -a'
 alias grep='grep --color=auto'
 alias ..='cd ..'
-
-# --- Prompt ---
-if [[ -n "$WRAPPED_STARSHIP_BIN_DIR" ]]; then
-    export PATH="$WRAPPED_STARSHIP_BIN_DIR:$PATH"
-fi
-if command -v starship &> /dev/null; then
-    eval "$(starship init zsh)"
-fi
 
 # --- Useful Functions ---
 # Create a directory and enter it immediately
