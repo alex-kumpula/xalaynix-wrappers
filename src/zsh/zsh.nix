@@ -1,4 +1,4 @@
-{ self, ... }:
+{ inputs, ... }:
 {
   flake.wrappers.zsh = 
   { pkgs, wlib, ... }: {
@@ -8,7 +8,7 @@
 
     config.env = {
       ZDOTDIR = "${./config}";
-      PATH = pkgs.lib.makeBinPath [ self.packages.${pkgs.system}.alacritty-example ];
+      PATH = pkgs.lib.makeBinPath [ inputs.self.packages.${pkgs.system}.alacritty-example ];
     };
   };
 }
