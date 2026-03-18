@@ -9,7 +9,7 @@
     config.extraPackages = [ inputs.self.packages.${pkgs.system}.starship ];
 
     config.env = {
-      ZDOTDIR = "${./config}";
+      ZDOTDIR = "${inputs.self.packages.${pkgs.system}.zsh-config}";
       WRAPPED_STARSHIP_BIN_DIR = "${inputs.self.packages.${pkgs.system}.starship}/bin";
     };
   };
