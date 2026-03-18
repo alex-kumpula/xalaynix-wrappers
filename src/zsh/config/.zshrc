@@ -9,6 +9,10 @@ setopt HIST_IGNORE_ALL_DUPS
 # Remove extra blanks from each command line being added to history
 setopt HIST_REDUCE_BLANKS
 
+
+export PATH="${WRAPPED_STARSHIP_BIN%/*}:$PATH"
+
+
 # --- Basic Keybindings ---
 # Use emacs-style keybindings (standard for most)
 bindkey -e
