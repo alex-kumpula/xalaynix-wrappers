@@ -6,6 +6,10 @@
 
     config.package = pkgs.zsh;
 
+    config.packages = [
+      pkgs.eza
+    ];
+
     config.env = {
       ZDOTDIR = "${inputs.self.packages.${pkgs.system}.zsh-config}";
       WRAPPED_STARSHIP_BIN_DIR = "${inputs.self.packages.${pkgs.system}.starship}/bin";
