@@ -6,7 +6,7 @@
 
     config.package = pkgs.zsh;
 
-    config.packages = [
+    config.extraPackages = [
       pkgs.eza
     ];
 
