@@ -14,7 +14,7 @@
       installPhase = ''
         mkdir -p $out
         # Copy everything from the unpacked src to the output
-        cp -r ./* $out/
+        cp -ra . $out/
       '';
     };
   };
