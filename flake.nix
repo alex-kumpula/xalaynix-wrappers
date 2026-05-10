@@ -41,6 +41,7 @@
     };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-lib.follows = "nixpkgs";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     systems.url = "github:nix-systems/default";
     wrapper-modules = {
       inputs.nixpkgs.follows = "nixpkgs";
