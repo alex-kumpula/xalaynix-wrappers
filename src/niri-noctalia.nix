@@ -5,11 +5,11 @@
   let
     noctaliaPkg = inputs.noctalia.packages.${pkgs.system}.default;
     alacrittyPkg = inputs.self.packages.${pkgs.system}.alacritty-example;
-    niriWipPkg = inputs.niri.packages.${pkgs.system}.default;
+    niriPkg = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.niri;
   in
   {
     imports = [ wlib.wrapperModules.niri ];
-    config.package = lib.mkForce niriWipPkg;
+    config.package = lib.mkForce niriPkg;
     config.settings.binds = {
       "Mod+T".spawn-sh = "${alacrittyPkg}/bin/alacritty";
       "Mod+D".spawn-sh = "${noctaliaPkg}/bin/noctalia-shell";
