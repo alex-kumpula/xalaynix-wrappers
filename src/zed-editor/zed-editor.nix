@@ -18,18 +18,18 @@
   flake.wrappers.zed =
     { pkgs, wlib, ... }: {
       imports = [ wlib.modules.default ];
-      config.package = pkgs.writeShellScriptBin "zed-editor" ''
+      
+      # We define the package as a shell script that calls bwrap directly
+      config.package = pkgs.writeShellScriptBin "zed" ''
         #!${pkgs.bash}/bin/bash
-
-        # 1. Determine the path inside the sandbox
-        # We use a variable to keep the bwrap command readable
-        ZED_CONF_DIR="''${XDG_CONFIG_HOME:-$HOME/.config}/zed"
-        ZED_SETTINGS="$ZED_CONF_DIR/settings.json"
+        
+        # Ensure the destination path exists (bwrap needs a mount point)
+        TARGET="''${XDG_CONFIG_HOME:-$HOME/.config}/zed/settings.json"
+        mkdir -p "$(dirname "$TARGET")"
 
         exec ${pkgs.bubblewrap}/bin/bwrap \
           --dev-bind / / \
-          --tmpfs "$ZED_CONF_DIR" \
-          --ro-bind ${./settings.json} "$ZED_SETTINGS" \
+          --ro-bind ${./settings.json} "$TARGET" \
           -- ${pkgs.zed-editor}/bin/zeditor "$@"
       '';
     };
