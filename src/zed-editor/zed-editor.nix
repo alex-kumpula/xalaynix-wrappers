@@ -20,7 +20,7 @@
       imports = [ wlib.modules.default ];
       config.package = pkgs.writeShellScriptBin "zed-editor" ''
         #!${pkgs.bash}/bin/bash
-          exec ${pkgs.bubblewrap}/bin/bwrap \
+          ${pkgs.bubblewrap}/bin/bwrap \
             --dev-bind / / \
             --ro-bind ${./settings.json} "''${XDG_CONFIG_HOME:-$HOME/.config}/zed/settings.json" \
             -- ${pkgs.zed-editor}/bin/zeditor "$@"
