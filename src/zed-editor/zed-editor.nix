@@ -31,6 +31,6 @@
           --tmpfs "$ZED_CONF_DIR" \
           --ro-bind ${./settings.json} "$ZED_SETTINGS" \
           -- ${pkgs.zed-editor}/bin/zeditor "$@"
-      ''
+      '';
     };
 }
