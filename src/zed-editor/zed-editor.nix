@@ -3,7 +3,7 @@
   flake.wrappers.zed =
     { pkgs, wlib, lib, ... }: {
       imports = [ wlib.modules.default ];
-      config.package = pkgs.writeShellScript "zed-wrapped" ''
+      config.package = pkgs.writeShellScriptBin "zed-wrapped" ''
           exec ${pkgs.bubblewrap}/bin/bwrap \
             --dev-bind / / \
             --ro-bind ${./settings.json} \
