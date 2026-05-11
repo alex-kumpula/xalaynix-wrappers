@@ -20,15 +20,17 @@
       imports = [ wlib.modules.default ];
       config.package = pkgs.writeShellScriptBin "zed-editor" ''
         #!${pkgs.bash}/bin/bash
-        
-        # Ensure the config directory exists on the host so bwrap can use it as a mount point
-        CONF_DIR="''${XDG_CONFIG_HOME:-$HOME/.config}/zed"
-        mkdir -p "$CONF_DIR"
+
+        # 1. Determine the path inside the sandbox
+        # We use a variable to keep the bwrap command readable
+        ZED_CONF_DIR="''${XDG_CONFIG_HOME:-$HOME/.config}/zed"
+        ZED_SETTINGS="$ZED_CONF_DIR/settings.json"
 
         exec ${pkgs.bubblewrap}/bin/bwrap \
           --dev-bind / / \
-          --ro-bind ${./settings.json} "$CONF_DIR/settings.json" \
+          --tmpfs "$ZED_CONF_DIR" \
+          --ro-bind ${./settings.json} "$ZED_SETTINGS" \
           -- ${pkgs.zed-editor}/bin/zeditor "$@"
-      '';
+      ''
     };
 }
