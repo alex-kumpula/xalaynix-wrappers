@@ -23,7 +23,7 @@
           exec ${pkgs.bubblewrap}/bin/bwrap \
             --dev-bind / / \
             --ro-bind ${./settings.json} "''${XDG_CONFIG_HOME:-$HOME/.config}/zed/settings.json" \
-            -- ${pkgs.zed-editor}/bin/zed "$@"
+            -- ${pkgs.zed-editor}/bin/zeditor "$@"
       '';
     };
 }
