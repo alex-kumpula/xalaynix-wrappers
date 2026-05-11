@@ -4,7 +4,7 @@
     { pkgs, wlib, lib, ... }: {
       imports = [ wlib.modules.default ];
       config.package = pkgs.zed-editor;
-      config.command = pkgs.writeShellScript "zed-wrapped" ''
+      config.exec = pkgs.writeShellScript "zed-wrapped" ''
           exec ${pkgs.bubblewrap}/bin/bwrap \
             --dev-bind / / \
             --ro-bind ${./settings.json} \
