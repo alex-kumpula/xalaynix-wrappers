@@ -18,7 +18,9 @@
           --dev-bind / / \
           --bind "$CUSTOM_SETTINGS" "$TARGET_FILE" \
           -- ${niriPkg}/bin/niri "$@"
-      '');
+      '' // {
+        inherit (niriPkg) version;
+      }); 
     config.settings.binds = {
       "Mod+T".spawn-sh = "${alacrittyPkg}/bin/alacritty";
       "Mod+D".spawn-sh = "${noctaliaPkg}/bin/noctalia-shell";
