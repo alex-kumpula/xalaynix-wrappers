@@ -61,5 +61,15 @@
         relPath = "bin/niri-session";
         content = patched;
     };
+    config.constructFiles.niri-service = let
+      original = builtins.readFile "${niriPkg}/lib/systemd/user/niri.service";
+      patched = builtins.replaceStrings
+        [ "${niriPkg}/bin/niri"   " niri" ]
+        [ "${placeholder "out"}/bin/niri"   " ${placeholder "out"}/bin/niri" ]
+        original;
+      in {
+        relPath = "lib/systemd/user/niri.service";
+        content = patched;
+    };
   };
 }
