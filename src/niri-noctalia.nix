@@ -66,6 +66,8 @@
           --replace-fail ' niri ' ' ${placeholder "out"}/bin/niri '
         substituteInPlace "$out/bin/niri-session" \
           --replace-fail 'niri.service' 'niri-noctalia.service'
+        substituteInPlace "$out/bin/niri-session" \
+          --replace-fail 'niri-shutdown.target' 'niri-noctalia-shutdown.target'
         chmod +x "$out/bin/niri-session"
       '';
     };
