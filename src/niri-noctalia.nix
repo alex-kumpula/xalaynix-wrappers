@@ -9,7 +9,7 @@
   in
   {
     imports = [ wlib.wrapperModules.niri ];
-    config.package = lib.mkForce pkgs.writeShellScriptBin "niri" ''
+    config.package = lib.mkForce (pkgs.writeShellScriptBin "niri" ''
         #!${pkgs.bash}/bin/bash
         ZED_CONFIG_DIR="$HOME/.config/zed"
         TARGET_FILE="$ZED_CONFIG_DIR/settings.json"
@@ -18,7 +18,7 @@
           --dev-bind / / \
           --bind "$CUSTOM_SETTINGS" "$TARGET_FILE" \
           -- ${niriPkg}/bin/niri "$@"
-      '';
+      '');
     config.settings.binds = {
       "Mod+T".spawn-sh = "${alacrittyPkg}/bin/alacritty";
       "Mod+D".spawn-sh = "${noctaliaPkg}/bin/noctalia-shell";
