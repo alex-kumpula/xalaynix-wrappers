@@ -43,7 +43,7 @@
         [Desktop Entry]
         Name=Niri Noctalia
         Comment=A scrollable-tiling Wayland compositor
-        Exec=niri-session
+        Exec=${placeholder "out"}/bin/niri-session
         Type=Application
         DesktopNames=niri-noctalia
       '';
