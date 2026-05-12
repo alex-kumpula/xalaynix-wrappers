@@ -64,8 +64,8 @@
         # Replace all bare 'niri' with absolute path to wrapped binary
         substituteInPlace "$out/bin/niri-session" \
           --replace-fail ' niri ' ' ${placeholder "out"}/bin/niri '
-        # substituteInPlace "$out/bin/niri-session" \
-        #   --replace-fail 'niri.service' ' ${placeholder "out"}/share/systemd/user/niri.service '
+        substituteInPlace "$out/bin/niri-session" \
+          --replace-fail 'niri.service' 'niri-noctalia.service'
         chmod +x "$out/bin/niri-session"
       '';
     };
@@ -76,12 +76,12 @@
         # Remove the symlink to the original
         rm -f "$out/share/systemd/user/niri.service"
         # Copy the original script
-        cp ${niriPkg}/share/systemd/user/niri.service "$out/share/systemd/user/niri.service"
+        cp ${niriPkg}/share/systemd/user/niri.service "$out/share/systemd/user/niri-noctalia.service"
         chmod +w "$out/share/systemd/user/niri.service"
         # Replace all bare 'niri' with absolute path to wrapped binary
-        # substituteInPlace "$out/share/systemd/user/niri.service" \
+        # substituteInPlace "$out/share/systemd/user/niri-noctalia.service" \
         #   --replace-fail ' niri ' ' ${placeholder "out"}/bin/niri '
-        sed -i 's|^ExecStart=.*|ExecStart=${placeholder "out"}/bin/niri --session|' "$out/share/systemd/user/niri.service"
+        sed -i 's|^ExecStart=.*|ExecStart=${placeholder "out"}/bin/niri --session|' "$out/share/systemd/user/niri-noctalia.service"
       '';
     };
     
