@@ -19,6 +19,7 @@
     ];
     config.env = {
       GDK_BACKEND = "wayland";
+      TESTVAR = "Hello from Niri-Noctalia wrapper! :D";
     };
     config.extraPackages = [ noctaliaPkg ];
   };
