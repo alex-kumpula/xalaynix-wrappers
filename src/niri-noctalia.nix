@@ -38,7 +38,7 @@
     };
     config.extraPackages = [ noctaliaPkg niriPkg ];
     config.constructFiles.niri-desktop = {
-      relPath = "share/wayland-sessions/niri.desktop";
+      relPath = "share/wayland-sessions/niri-noctalia.desktop";
       content = ''
         [Desktop Entry]
         Name=Niri Noctalia
