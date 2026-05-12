@@ -9,7 +9,7 @@
   in
   {
     imports = [ wlib.wrapperModules.niri ];
-    config.package = lib.mkForce pkgs.writeShellScriptBin "niri" ''
+    config.package = pkgs.writeShellScriptBin "niri" ''
         #!${pkgs.bash}/bin/bash
         ZED_CONFIG_DIR="$HOME/.config/zed"
         TARGET_FILE="$ZED_CONFIG_DIR/settings.json"
