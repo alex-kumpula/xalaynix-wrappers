@@ -5,7 +5,7 @@
   let
     noctaliaPkg = inputs.noctalia.packages.${pkgs.system}.default;
   in
-  { pkgs, wlib, ... }: {
+  {
     imports = [ wlib.modules.default ];
     config.package = pkgs.writeShellScriptBin "noctalia-shell" ''
         #!${pkgs.bash}/bin/bash
@@ -17,6 +17,8 @@
           --bind "$CUSTOM_SETTINGS" "$TARGET_FILE" \
           -- ${noctaliaPkg}/bin/noctalia-shell "$@"
       '';
-    
+    config.env = {
+      TESTVAR = "Hello from wrapped Noctalia! :D";
+    };
   };
 }
