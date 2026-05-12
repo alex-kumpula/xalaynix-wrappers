@@ -17,6 +17,9 @@
     config.settings.spawn-at-startup = [
       ["${dmsPkg}/bin/dms" "run" "--session"]
     ];
+    config.extraSettings = [
+      { include = [ { optional = true; } "$HOME/.config/niri/noctalia.kdl" ]; }
+    ];
     config.env = {
       GDK_BACKEND = "wayland";
     };
