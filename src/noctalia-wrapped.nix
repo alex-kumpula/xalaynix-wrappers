@@ -7,15 +7,18 @@
   in
   { pkgs, wlib, ... }: {
     imports = [ wlib.modules.default ];
-    config.package = noctaliaPkg;
+    config.package = pkgs.writeShellScriptBin "noctalia-shell" ''
+        #!${pkgs.bash}/bin/bash
+        ZED_CONFIG_DIR="$HOME/.config/zed"
+        TARGET_FILE="$ZED_CONFIG_DIR/settings.json"
+        CUSTOM_SETTINGS="$(realpath ${./settings.json})"
+        exec ${pkgs.bubblewrap}/bin/bwrap \
+          --dev-bind / / \
+          --bind "$CUSTOM_SETTINGS" "$TARGET_FILE" \
+          -- ${noctaliaPkg}/bin/noctalia-shell "$@"
+      '';
     config.env = {
       TESTVAR = "Hello from wrapped Noctalia! :D";
     };
-    config.argv0type = command_string: ''
-        exec ${pkgs.bubblewrap}/bin/bwrap \
-          --dev-bind / / \
-          --bind ${./settings.json} "''${XDG_CONFIG_HOME:-$HOME/.config}/niri/noctalia.kdl" \
-          -- ${command_string} "$@"
-      '';
   };
 }

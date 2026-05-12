@@ -3,7 +3,7 @@
   flake.wrappers.niri-noctalia = 
   { pkgs, wlib, lib, ... }: 
   let
-    noctaliaPkg = inputs.noctalia.packages.${pkgs.system}.default;
+    noctaliaPkg = inputs.self.packages.${pkgs.system}.noctalia-wrapped;
     alacrittyPkg = inputs.self.packages.${pkgs.system}.alacritty-example;
     niriPkg = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.niri;
   in
