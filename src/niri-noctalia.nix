@@ -50,25 +50,17 @@
     };
     config.filesToExclude = [ "share/wayland-sessions/niri.desktop" ];
     config.passthru.providedSessions = lib.mkForce ["niri-noctalia"];
-    config.buildCommand.patchNiriSession = {
-      after = [ "symlinkScript" ];
-      data = ''
-        # Remove the symlink that points to the original niri-session
-        rm -f "$out/bin/niri-session"
-
-        # Copy the original script and make it writable
-        cp ${niriPkg}/bin/niri-session "$out/bin/niri-session"
-        chmod +w "$out/bin/niri-session"
-
-        # Replace all occurrences of the standalone 'niri' command
-        # with the full path to your wrapped binary.
-        # The original script uses 'exec niri --session' and 'niri' in a few places.
-        substituteInPlace "$out/bin/niri-session" \
-          --replace-fail 'exec niri' 'exec ${placeholder "out"}/bin/niri' \
-          --replace-fail ' niri ' ' ${placeholder "out"}/bin/niri ' \
-          --replace-fail 'niri --session' '${placeholder "out"}/bin/niri --session' \
-          --replace-fail '"niri"' '"${placeholder "out"}/bin/niri"'
-      '';
+    config.constructFiles.niri-session = let
+      original = builtins.readFile "${niriPkg}/bin/niri-session";
+      # Replace all occurrences of the bare command 'niri' with the absolute path to the wrapped binary
+      patched = builtins.replaceStrings
+        [ " niri "   " niri\n"   " niri\t"   " niri;"   "exec niri"   "'niri'"   "\"niri\"" ]
+        [ " ${placeholder "out"}/bin/niri "   " ${placeholder "out"}/bin/niri\n"   " ${placeholder "out"}/bin/niri\t"   " ${placeholder "out"}/bin/niri;"   "exec ${placeholder "out"}/bin/niri"   "'${placeholder "out"}/bin/niri'"   "\"${placeholder "out"}/bin/niri\"" ]
+        original;
+      in {
+        relPath = "bin/niri-session";
+        content = patched;
+        executable = true;
     };
   };
 }
