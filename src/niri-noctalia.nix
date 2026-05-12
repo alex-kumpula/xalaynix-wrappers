@@ -37,8 +37,8 @@
       TESTVAR = "Hello from Niri-Noctalia wrapper! :D";
     };
     config.extraPackages = [ noctaliaPkg niriPkg ];
-    config.constructFiles.niriNoctalia-desktop = {
-      relPath = "share/wayland-sessions/niri.desktop";
+    config.constructFiles.niri-desktop = {
+      relPath = "share/wayland-sessions/niri-noctalia.desktop";
       content = ''
         [Desktop Entry]
         Name=Niri Noctalia
