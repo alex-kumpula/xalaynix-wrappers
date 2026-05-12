@@ -650,7 +650,7 @@
       };
       wallpaper = {
         automationEnabled = false;
-        directory = "/home/alex/Pictures/Wallpapers";
+        directory = "$HOME/Pictures/Wallpapers";
         enableMultiMonitorDirectories = false;
         enabled = true;
         favorites = [ ];
