@@ -49,31 +49,9 @@
       '';
     };
     config.filesToExclude = [ "share/wayland-sessions/niri.desktop" "bin/niri-session" ];
+    config.filesToPatch = lib.mkForce [ ];
     config.passthru.providedSessions = lib.mkForce ["niri-noctalia"];
-    # config.constructFiles.niri-session = let
-    #   original = builtins.readFile "${niriPkg}/bin/niri-session";
-    #   # Replace all occurrences of the bare command 'niri' with the absolute path to the wrapped binary
-    #   patched = builtins.replaceStrings
-    #     [ " niri "   " niri\n"   " niri\t"   " niri;"   "exec niri"   "'niri'"   "\"niri\"" ]
-    #     [ " ${placeholder "out"}/bin/niri "   " ${placeholder "out"}/bin/niri\n"   " ${placeholder "out"}/bin/niri\t"   " ${placeholder "out"}/bin/niri;"   "exec ${placeholder "out"}/bin/niri"   "'${placeholder "out"}/bin/niri'"   "\"${placeholder "out"}/bin/niri\"" ]
-    #     original;
-    #   in {
-    #     relPath = "bin/niri-session";
-    #     content = patched;
-    # };
-    # config.buildCommand.patchNiriSession = {
-    #   after = [ "symlinkScript" ];   # run after the initial symlink phase
-    #   data = ''
-    #     # Remove the original symlink that points to the system niri-session
-    #     rm -f "$out/bin/niri-session"
-    #     # Write the new wrapper script
-    #     cat > "$out/bin/niri-session" << 'EOF'
-    #     #!${pkgs.bash}/bin/bash
-    #     exec ${placeholder "out"}/bin/niri "$@"
-    #     EOF
-    #     chmod +x "$out/bin/niri-session"
-    #   '';
-    # };
+    
     config.buildCommand.patchNiriSession = {
       after = [ "symlinkScript" "patchSelfReferences" ];
       data = ''
@@ -94,28 +72,7 @@
         chmod +x "$out/bin/niri-session"
       '';
     };
-    # config.constructFiles.niri-session = let
-    #     original = builtins.readFile "${niriPkg}/bin/niri-session";
-    #     # Replace the single critical 'exec niri --session' line with absolute path
-    #     patched = builtins.replaceStrings
-    #       [ "exec niri --session" ]
-    #       [ "exec ${placeholder "out"}/bin/niri --session" ]
-    #       original;
-    #   in {
-    #     relPath = "bin/niri-session";
-    #     content = patched;
-    #     # No 'executable = true' – but constructFiles will set +x automatically for files in bin/
-    #   };
-    # config.constructFiles.niri-service = let
-    #   original = builtins.readFile "${niriPkg}/lib/systemd/user/niri.service";
-    #   patched = builtins.replaceStrings
-    #     [ "${niriPkg}/bin/niri"   " niri" ]
-    #     [ "${placeholder "out"}/bin/niri"   " ${placeholder "out"}/bin/niri" ]
-    #     original;
-    #   in {
-    #     relPath = "lib/systemd/user/niri.service";
-    #     content = patched;
-    # };
+    
     config.constructFiles.niri-service = let
       original = builtins.readFile "${niriPkg}/lib/systemd/user/niri.service";
       patched = builtins.replaceStrings
