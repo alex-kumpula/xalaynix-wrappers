@@ -60,7 +60,6 @@
       in {
         relPath = "bin/niri-session";
         content = patched;
-        executable = true;
     };
   };
 }
