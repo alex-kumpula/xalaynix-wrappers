@@ -28,6 +28,9 @@
     config.settings.spawn-at-startup = [
       ["${noctaliaPkg}/bin/noctalia-shell"]
     ];
+    config.extraSettings = [
+      { include = [ { optional = true; } "~/.config/niri/noctalia.kdl" ]; }
+    ];
     config.env = {
       GDK_BACKEND = "wayland";
       TESTVAR = "Hello from Niri-Noctalia wrapper! :D";
