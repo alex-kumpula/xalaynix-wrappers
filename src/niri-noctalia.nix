@@ -79,9 +79,17 @@
         cp ${niriPkg}/share/systemd/user/niri.service "$out/share/systemd/user/niri-noctalia.service"
         chmod +w "$out/share/systemd/user/niri-noctalia.service"
         # Replace all bare 'niri' with absolute path to wrapped binary
-        # substituteInPlace "$out/share/systemd/user/niri-noctalia.service" \
-        #   --replace-fail ' niri ' ' ${placeholder "out"}/bin/niri '
         sed -i 's|^ExecStart=.*|ExecStart=${placeholder "out"}/bin/niri --session|' "$out/share/systemd/user/niri-noctalia.service"
+      '';
+    };
+
+    config.buildCommand.patchNiriShutdownTarget = {
+      after = [ "symlinkScript" "patchSelfReferences" ];
+      data = ''
+        # Remove the symlink to the original
+        rm -f "$out/share/systemd/user/niri-shutdown.target"
+        # Copy the original script
+        cp ${niriPkg}/share/systemd/user/niri-shutdown.target "$out/share/systemd/user/niri-noctalia-shutdown.target"
       '';
     };
     
