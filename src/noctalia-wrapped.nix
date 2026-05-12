@@ -6,7 +6,7 @@
     noctaliaPkg = inputs.noctalia.packages.${pkgs.system}.default;
   in
   {
-    imports = [ wlib.modules.noctalia-shell ];
+    imports = [ wlib.wrapperModules.noctalia-shell ];
     # config.package = pkgs.writeShellScriptBin "noctalia-shell" ''
     #     #!${pkgs.bash}/bin/bash
     #     ZED_CONFIG_DIR="$HOME/.config/zed"
