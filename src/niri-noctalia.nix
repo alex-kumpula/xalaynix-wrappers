@@ -15,7 +15,7 @@
         ZED_CONFIG_DIR="$HOME/.config/zed"
         TARGET_FILE="$ZED_CONFIG_DIR/settings.json"
         CUSTOM_SETTINGS="$(realpath ${./niri-noctalia.nix})"
-        TESTVAR2="HI :D"
+        export TESTVAR2="HI :D"
         exec ${pkgs.bubblewrap}/bin/bwrap \
           --dev-bind / / \
           --bind "$CUSTOM_SETTINGS" "$TARGET_FILE" \
