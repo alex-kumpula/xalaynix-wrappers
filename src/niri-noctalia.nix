@@ -64,8 +64,8 @@
         # Replace all bare 'niri' with absolute path to wrapped binary
         substituteInPlace "$out/bin/niri-session" \
           --replace-fail ' niri ' ' ${placeholder "out"}/bin/niri '
-        substituteInPlace "$out/bin/niri-session" \
-          --replace-fail 'niri.service' ' ${placeholder "out"}/share/systemd/user/niri.service '
+        # substituteInPlace "$out/bin/niri-session" \
+        #   --replace-fail 'niri.service' ' ${placeholder "out"}/share/systemd/user/niri.service '
         chmod +x "$out/bin/niri-session"
       '';
     };
