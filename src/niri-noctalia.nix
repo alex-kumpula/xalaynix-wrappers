@@ -51,6 +51,7 @@
     config.filesToExclude = [ "share/wayland-sessions/niri.desktop" "bin/niri-session" "share/systemd/user/niri.service" ];
     config.filesToPatch = lib.mkForce [ ];
     config.passthru.providedSessions = lib.mkForce ["niri-noctalia"];
+    config.disableConfigHotReload = true;
     
     config.buildCommand.patchNiriSession = {
       after = [ "symlinkScript" "patchSelfReferences" ];
