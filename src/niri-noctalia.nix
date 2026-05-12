@@ -59,7 +59,7 @@
         rm -f "$out/bin/niri-session"
         # Copy the original script
         cp ${niriPkg}/bin/niri-session "$out/bin/niri-session"
-        chmod +w "$out/bin/niri-session"
+        # chmod +w "$out/bin/niri-session"
         # Replace all bare 'niri' with absolute path to wrapped binary
         substituteInPlace "$out/bin/niri-session" \
           --replace-fail 'exec niri' 'exec ${placeholder "out"}/bin/niri' \
@@ -69,7 +69,7 @@
           --replace-fail ' niri;' ' ${placeholder "out"}/bin/niri;' \
           --replace-fail '"niri"' '"${placeholder "out"}/bin/niri"' \
           --replace-fail "'niri'" "'${placeholder "out"}/bin/niri'"
-        chmod +x "$out/bin/niri-session"
+        # chmod +x "$out/bin/niri-session"
       '';
     };
     
