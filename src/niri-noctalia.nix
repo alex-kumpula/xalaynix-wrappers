@@ -77,7 +77,9 @@
         cp ${niriPkg}/share/systemd/user/niri.service "$out/share/systemd/user/niri.service"
         chmod +w "$out/share/systemd/user/niri.service"
         # Replace all bare 'niri' with absolute path to wrapped binary
-        substituteInPlace path/to/niri.service \
+        # substituteInPlace "$out/share/systemd/user/niri.service" \
+        #   --replace-fail ' niri ' ' ${placeholder "out"}/bin/niri '
+        substituteInPlace "$out/share/systemd/user/niri.service" \
           --replace-regexp '^ExecStart=.*' 'ExecStart=${placeholder "out"}/bin/niri --session'
       '';
     };
