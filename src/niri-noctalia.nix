@@ -77,7 +77,7 @@
         rm -f "$out/share/systemd/user/niri.service"
         # Copy the original script
         cp ${niriPkg}/share/systemd/user/niri.service "$out/share/systemd/user/niri-noctalia.service"
-        chmod +w "$out/share/systemd/user/niri.service"
+        chmod +w "$out/share/systemd/user/niri-noctalia.service"
         # Replace all bare 'niri' with absolute path to wrapped binary
         # substituteInPlace "$out/share/systemd/user/niri-noctalia.service" \
         #   --replace-fail ' niri ' ' ${placeholder "out"}/bin/niri '
