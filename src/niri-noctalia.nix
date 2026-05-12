@@ -48,7 +48,7 @@
         DesktopNames=niri-noctalia
       '';
     };
-    config.filesToExclude = [ "share/wayland-sessions/niri.desktop" "bin/niri-session" "share/systemd/user/niri.service" ];
+    config.filesToExclude = [ "share/wayland-sessions/niri.desktop" ];
     config.filesToPatch = lib.mkForce [ ];
     config.passthru.providedSessions = lib.mkForce ["niri-noctalia"];
     config.disableConfigHotReload = true;
