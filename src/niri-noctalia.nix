@@ -67,16 +67,30 @@
         chmod +x "$out/bin/niri-session"
       '';
     };
-    
-    config.constructFiles.niri-service = let
-      original = builtins.readFile "${niriPkg}/lib/systemd/user/niri.service";
-      patched = builtins.replaceStrings
-        [ "${niriPkg}/bin/niri" " niri" ]
-        [ "${placeholder "out"}/bin/niri" " ${placeholder "out"}/bin/niri" ]
-        original;
-    in {
-      relPath = "lib/systemd/user/niri.service";
-      content = patched;
+
+    config.buildCommand.patchNiriService = {
+      after = [ "symlinkScript" "patchSelfReferences" ];
+      data = ''
+        # Remove the symlink to the original
+        rm -f "$out/share/systemd/user/niri.service"
+        # Copy the original script
+        cp ${niriPkg}/share/systemd/user/niri.service "$out/share/systemd/user/niri.service"
+        chmod +w "$out/share/systemd/user/niri.service"
+        # Replace all bare 'niri' with absolute path to wrapped binary
+        substituteInPlace "$out/share/systemd/user/niri.service" \
+          --replace-fail ' niri ' ' ${placeholder "out"}/bin/niri '
+      '';
     };
+    
+    # config.constructFiles.niri-service = let
+    #   original = builtins.readFile "${niriPkg}/lib/systemd/user/niri.service";
+    #   patched = builtins.replaceStrings
+    #     [ "${niriPkg}/bin/niri" " niri" ]
+    #     [ "${placeholder "out"}/bin/niri" " ${placeholder "out"}/bin/niri" ]
+    #     original;
+    # in {
+    #   relPath = "lib/systemd/user/niri.service";
+    #   content = patched;
+    # };
   };
 }
