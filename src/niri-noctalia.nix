@@ -43,7 +43,7 @@
         [Desktop Entry]
         Name=Niri Noctalia
         Comment=A scrollable-tiling Wayland compositor
-        Exec=${niriPkg}/bin/niri-session
+        Exec=${placeholder "out"}/bin/niri-session
         Type=Application
         DesktopNames=niri-noctalia
       '';
@@ -74,6 +74,26 @@
     #     chmod +x "$out/bin/niri-session"
     #   '';
     # };
+    config.buildCommand.patchNiriSession = {
+      after = [ "symlinkScript" "patchSelfReferences" ];
+      data = ''
+        # Remove the symlink to the original
+        rm -f "$out/bin/niri-session"
+        # Copy the original script
+        cp ${niriPkg}/bin/niri-session "$out/bin/niri-session"
+        chmod +w "$out/bin/niri-session"
+        # Replace all bare 'niri' with absolute path to wrapped binary
+        substituteInPlace "$out/bin/niri-session" \
+          --replace-fail 'exec niri' 'exec ${placeholder "out"}/bin/niri' \
+          --replace-fail ' niri ' ' ${placeholder "out"}/bin/niri ' \
+          --replace-fail ' niri\n' ' ${placeholder "out"}/bin/niri\n' \
+          --replace-fail ' niri\t' ' ${placeholder "out"}/bin/niri\t' \
+          --replace-fail ' niri;' ' ${placeholder "out"}/bin/niri;' \
+          --replace-fail '"niri"' '"${placeholder "out"}/bin/niri"' \
+          --replace-fail "'niri'" "'${placeholder "out"}/bin/niri'"
+        chmod +x "$out/bin/niri-session"
+      '';
+    };
     config.constructFiles.niri-service = let
       original = builtins.readFile "${niriPkg}/lib/systemd/user/niri.service";
       patched = builtins.replaceStrings
