@@ -61,19 +61,19 @@
     #     relPath = "bin/niri-session";
     #     content = patched;
     # };
-    config.buildCommand.patchNiriSession = {
-      after = [ "symlinkScript" ];   # run after the initial symlink phase
-      data = ''
-        # Remove the original symlink that points to the system niri-session
-        rm -f "$out/bin/niri-session"
-        # Write the new wrapper script
-        cat > "$out/bin/niri-session" << 'EOF'
-        #!${pkgs.bash}/bin/bash
-        exec ${placeholder "out"}/bin/niri "$@"
-        EOF
-        chmod +x "$out/bin/niri-session"
-      '';
-    };
+    # config.buildCommand.patchNiriSession = {
+    #   after = [ "symlinkScript" ];   # run after the initial symlink phase
+    #   data = ''
+    #     # Remove the original symlink that points to the system niri-session
+    #     rm -f "$out/bin/niri-session"
+    #     # Write the new wrapper script
+    #     cat > "$out/bin/niri-session" << 'EOF'
+    #     #!${pkgs.bash}/bin/bash
+    #     exec ${placeholder "out"}/bin/niri "$@"
+    #     EOF
+    #     chmod +x "$out/bin/niri-session"
+    #   '';
+    # };
     config.constructFiles.niri-service = let
       original = builtins.readFile "${niriPkg}/lib/systemd/user/niri.service";
       patched = builtins.replaceStrings
