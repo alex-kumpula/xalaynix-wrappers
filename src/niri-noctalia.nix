@@ -63,7 +63,7 @@
         chmod +w "$out/bin/niri-session"
         # Replace all bare 'niri' with absolute path to wrapped binary
         substituteInPlace "$out/bin/niri-session" \
-          --replace-fail ' niri ' ' ${placeholder "out"}/bin/niri ' \
+          --replace-fail ' niri ' ' ${placeholder "out"}/bin/niri '
         chmod +x "$out/bin/niri-session"
       '';
     };
