@@ -48,5 +48,6 @@
         DesktopNames=niri-noctalia
       '';
     };
+    config.filesToExclude = [ "share/wayland-sessions/niri.desktop" ];
   };
 }
