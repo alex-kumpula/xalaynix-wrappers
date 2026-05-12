@@ -12,14 +12,16 @@
     config.package = lib.mkForce niriPkg;
     config.argv0type = command_string: ''
         #!${pkgs.bash}/bin/bash
-        ZED_CONFIG_DIR="$HOME/.config/zed"
-        TARGET_FILE="$ZED_CONFIG_DIR/settings.json"
-        CUSTOM_SETTINGS="$(realpath ${./niri-noctalia.nix})"
-        export TESTVAR2="HI :D"
-        export PATH="${niriPkg}/bin:$PATH"
         exec ${pkgs.bubblewrap}/bin/bwrap \
-          --dev-bind / / \
+          --dev-bind /dev /dev \
+          --ro-bind /sys /sys \
+          --bind /run /run \
+          --bind /tmp /tmp \
+          --proc /proc \
           --bind "$CUSTOM_SETTINGS" "$TARGET_FILE" \
+          --setenv XDG_RUNTIME_DIR "$XDG_RUNTIME_DIR" \
+          --setenv NOTIFY_SOCKET "$NOTIFY_SOCKET" \
+          --setenv PATH "${niriPkg}/bin:$PATH" \
           -- ${command_string}
       '';
     config.settings.binds = {
