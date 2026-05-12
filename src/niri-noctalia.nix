@@ -20,7 +20,7 @@
         exec ${pkgs.bubblewrap}/bin/bwrap \
           --dev-bind / / \
           --bind "$CUSTOM_SETTINGS" "$TARGET_FILE" \
-          -- ${command_string} "$@"
+          -- ${command_string}
       '';
     config.settings.binds = {
       "Mod+T".spawn-sh = "${alacrittyPkg}/bin/alacritty";
