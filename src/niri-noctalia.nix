@@ -49,6 +49,6 @@
       '';
     };
     config.filesToExclude = [ "share/wayland-sessions/niri.desktop" ];
-    config.passthru.providedSessions = ["niri-noctalia"];
+    config.passthru.providedSessions = lib.mkForce ["niri-noctalia"];
   };
 }
