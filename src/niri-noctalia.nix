@@ -51,30 +51,23 @@
     config.filesToExclude = [ "share/wayland-sessions/niri.desktop" ];
     config.passthru.providedSessions = lib.mkForce ["niri-noctalia"];
     config.buildCommand.patchNiriSession = {
-      # Ensure this runs after the initial 'symlinkScript' phase
       after = [ "symlinkScript" ];
       data = ''
-        # Override the main session script
-        session_script="$out/bin/niri-session"
-        if [ -f "$session_script" ]; then
-          substituteInPlace "$session_script" \
-            --replace-fail "${niriPkg}/bin/niri-session" "${placeholder "out"}/bin/niri-session"
-        fi
+        # Remove the symlink that points to the original niri-session
+        rm -f "$out/bin/niri-session"
 
-        # Override the systemd service file
-        user_service_dir="$out/share/systemd/user"
-        if [ -d "$user_service_dir" ]; then
-          for service in "$user_service_dir"/*.service; do
-            if [ -f "$service" ]; then
-              substituteInPlace "$service" \
-                --replace-fail "${niriPkg}/" "${placeholder "out"}/" \
-                --replace-fail "${niriPkg}/bin/niri" "${placeholder "out"}/bin/niri"
-            fi
-          done
-        fi
+        # Copy the original script and make it writable
+        cp ${niriPkg}/bin/niri-session "$out/bin/niri-session"
+        chmod +w "$out/bin/niri-session"
 
-        # Override the desktop file (already defined)
-        # config.constructFiles.niri-desktop ... (as before)
+        # Replace all occurrences of the standalone 'niri' command
+        # with the full path to your wrapped binary.
+        # The original script uses 'exec niri --session' and 'niri' in a few places.
+        substituteInPlace "$out/bin/niri-session" \
+          --replace-fail 'exec niri' 'exec ${placeholder "out"}/bin/niri' \
+          --replace-fail ' niri ' ' ${placeholder "out"}/bin/niri ' \
+          --replace-fail 'niri --session' '${placeholder "out"}/bin/niri --session' \
+          --replace-fail '"niri"' '"${placeholder "out"}/bin/niri"'
       '';
     };
   };
