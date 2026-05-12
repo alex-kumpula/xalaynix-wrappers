@@ -18,7 +18,7 @@
       ["${dmsPkg}/bin/dms" "run" "--session"]
     ];
     config.extraSettings = [
-      { include = [ { optional = true; } "$HOME/.config/niri/noctalia.kdl" ]; }
+      { include = [ { optional = true; } "~/.config/niri/noctalia.kdl" ]; }
     ];
     config.env = {
       GDK_BACKEND = "wayland";

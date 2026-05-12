@@ -375,7 +375,7 @@
         animationDisabled = true;
         animationSpeed = 2;
         autoStartAuth = false;
-        avatarImage = "$HOME/.face";
+        avatarImage = "~/.face";
         boxRadiusRatio = 1;
         clockFormat = "hh\\nmm";
         clockStyle = "custom";
@@ -650,7 +650,7 @@
       };
       wallpaper = {
         automationEnabled = false;
-        directory = "$HOME/Pictures/Wallpapers";
+        directory = "~/Pictures/Wallpapers";
         enableMultiMonitorDirectories = false;
         enabled = true;
         favorites = [ ];
