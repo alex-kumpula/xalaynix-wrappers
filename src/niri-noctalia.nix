@@ -37,5 +37,14 @@
       TESTVAR = "Hello from Niri-Noctalia wrapper! :D";
     };
     config.extraPackages = [ noctaliaPkg niriPkg ];
+    config.postBuild = ''
+        desktop="$out/share/wayland-sessions/niri.desktop"
+
+        substituteInPlace "$desktop" \
+          --replace-fail "Name=Niri" "Name=Niri Noctalia"
+
+        substituteInPlace "$desktop" \
+          --replace-fail "DesktopNames=niri" "DesktopNames=niri-noctalia"
+      '';
   };
 }
