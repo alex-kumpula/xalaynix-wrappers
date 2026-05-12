@@ -50,5 +50,34 @@
     };
     config.filesToExclude = [ "share/wayland-sessions/niri.desktop" ];
     config.passthru.providedSessions = lib.mkForce ["niri-noctalia"];
+    config.buildCommand.patchNiriSession = {
+      # Ensure this runs after the initial 'symlinkScript' phase
+      after = [ "symlinkScript" ];
+      data = ''
+        # Override the main session script
+        session_script="$out/bin/niri-session"
+        if [ -f "$session_script" ]; then
+          chmod +w "$session_script"
+          substituteInPlace "$session_script" \
+            --replace-fail "${niriPkg}/bin/niri-session" "${placeholder "out"}/bin/niri-session"
+        fi
+
+        # Override the systemd service file
+        user_service_dir="$out/share/systemd/user"
+        if [ -d "$user_service_dir" ]; then
+          chmod -R +w "$user_service_dir"
+          for service in "$user_service_dir"/*.service; do
+            if [ -f "$service" ]; then
+              substituteInPlace "$service" \
+                --replace-fail "${niriPkg}/" "${placeholder "out"}/" \
+                --replace-fail "${niriPkg}/bin/niri" "${placeholder "out"}/bin/niri"
+            fi
+          done
+        fi
+
+        # Override the desktop file (already defined)
+        # config.constructFiles.niri-desktop ... (as before)
+      '';
+    };
   };
 }
