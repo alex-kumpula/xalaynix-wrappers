@@ -57,7 +57,6 @@
         # Override the main session script
         session_script="$out/bin/niri-session"
         if [ -f "$session_script" ]; then
-          chmod +w "$session_script"
           substituteInPlace "$session_script" \
             --replace-fail "${niriPkg}/bin/niri-session" "${placeholder "out"}/bin/niri-session"
         fi
@@ -65,7 +64,6 @@
         # Override the systemd service file
         user_service_dir="$out/share/systemd/user"
         if [ -d "$user_service_dir" ]; then
-          chmod -R +w "$user_service_dir"
           for service in "$user_service_dir"/*.service; do
             if [ -f "$service" ]; then
               substituteInPlace "$service" \
