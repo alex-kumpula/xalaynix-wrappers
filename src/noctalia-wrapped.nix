@@ -17,8 +17,6 @@
           --bind "$CUSTOM_SETTINGS" "$TARGET_FILE" \
           -- ${noctaliaPkg}/bin/noctalia-shell "$@"
       '';
-    config.env = {
-      TESTVAR = "Hello from wrapped Noctalia! :D";
-    };
+    
   };
 }
