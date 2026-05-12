@@ -6,6 +6,14 @@
     noctaliaPkg = inputs.self.packages.${pkgs.system}.noctalia-wrapped;
     alacrittyPkg = inputs.self.packages.${pkgs.system}.alacritty-example;
     niriPkg = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.niri;
+    niriNoctaliaSession = pkgs.writeTextDir "share/wayland-sessions/niri-noctalia.desktop" ''
+      [Desktop Entry]
+      Name=Niri Noctalia
+      Comment=A scrollable-tiling Wayland compositor
+      Exec=niri-session
+      Type=Application
+      DesktopNames=niri-noctalia
+    '';
   in
   {
     imports = [ wlib.wrapperModules.niri ];
@@ -36,7 +44,7 @@
       GDK_BACKEND = "wayland";
       TESTVAR = "Hello from Niri-Noctalia wrapper! :D";
     };
-    config.extraPackages = [ noctaliaPkg niriPkg ];
+    config.extraPackages = [ noctaliaPkg niriPkg niriNoctaliaSession ];
     # config.postBuild = ''
     #     desktop="$out/share/wayland-sessions/niri.desktop"
 
