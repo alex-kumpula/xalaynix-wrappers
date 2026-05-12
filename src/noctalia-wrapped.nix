@@ -696,46 +696,46 @@
         wallpaperChangeMode = "random";
       };
     };
-    state = {
-      barVisible = true;
-      changelogState = {
-        lastSeenVersion = "v4.7.7";
-      };
-      colorSchemesList = {
-        schemes = [ ];
-        timestamp = 0;
-      };
-      desktopWidgetsEditMode = false;
-      display = {
-        winit = {
-          connected = true;
-          height = 1068;
-          name = "winit";
-          physical_height = 0;
-          physical_width = 0;
-          refresh_rate = 60000;
-          scale = 1;
-          transform = "Flipped180";
-          vrr_enabled = false;
-          vrr_supported = false;
-          width = 904;
-          x = 0;
-          y = 0;
-        };
-      };
-      doNotDisturb = false;
-      lockScreenActive = false;
-      noctaliaPerformanceMode = false;
-      notificationsState = {
-        lastSeenTs = 1778477359000;
-      };
-      openedPanel = "";
-      ui = {
-        settingsSidebarExpanded = true;
-      };
-      wallpapers = {
-        winit = "/home/alex/Pictures/Wallpapers/wallhaven_r2o657.jpg";
-      };
-    };
+    # state = {
+    #   barVisible = true;
+    #   changelogState = {
+    #     lastSeenVersion = "v4.7.7";
+    #   };
+    #   colorSchemesList = {
+    #     schemes = [ ];
+    #     timestamp = 0;
+    #   };
+    #   desktopWidgetsEditMode = false;
+    #   display = {
+    #     winit = {
+    #       connected = true;
+    #       height = 1068;
+    #       name = "winit";
+    #       physical_height = 0;
+    #       physical_width = 0;
+    #       refresh_rate = 60000;
+    #       scale = 1;
+    #       transform = "Flipped180";
+    #       vrr_enabled = false;
+    #       vrr_supported = false;
+    #       width = 904;
+    #       x = 0;
+    #       y = 0;
+    #     };
+    #   };
+    #   doNotDisturb = false;
+    #   lockScreenActive = false;
+    #   noctaliaPerformanceMode = false;
+    #   notificationsState = {
+    #     lastSeenTs = 1778477359000;
+    #   };
+    #   openedPanel = "";
+    #   ui = {
+    #     settingsSidebarExpanded = true;
+    #   };
+    #   wallpapers = {
+    #     winit = "/home/alex/Pictures/Wallpapers/wallhaven_r2o657.jpg";
+    #   };
+    # };
   };
 }
