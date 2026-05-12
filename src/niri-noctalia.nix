@@ -13,7 +13,7 @@
     config.argv0type = command_string: ''
         #!${pkgs.bash}/bin/bash
         exec ${pkgs.bubblewrap}/bin/bwrap \
-          --dev-bind /dev /dev \
+          --dev-bind / / \
           --ro-bind /sys /sys \
           --bind /run /run \
           --bind /tmp /tmp \
