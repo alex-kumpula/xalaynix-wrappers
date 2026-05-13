@@ -18,19 +18,19 @@
           Mod+Shift+Slash { show-hotkey-overlay; }
 
           // Open launcher
-          Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "${pkgs.fuzzel}"; }
+          Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "${pkgs.fuzzel}/bin/fuzzel"; }
 
           // Open overview
           Mod+Tab repeat=false { toggle-overview; }
 
           // Spawn Applications
           Mod+T hotkey-overlay-title="Open a Terminal: wezterm" { spawn "${weztermPkg}/bin/wezterm"; }
-          Mod+E hotkey-overlay-title="Open a File Browser: wezterm" { spawn "thunar" "-w"; }
-          Mod+Shift+C { spawn "${pkgs.wl-color-picker}"; }
+          Mod+E hotkey-overlay-title="Open a File Browser: wezterm" { spawn "${pkgs.xfce.thunar}/bin/thunar" "-w"; }
+          Mod+Shift+C { spawn "${pkgs.wl-color-picker}/bin/wl-color-picker"; }
         
           // Discord Muting
-          Mod+M { spawn "${pkgs.xdotool}" "key" "Alt_R"; }
-          Mod+Space { spawn "${pkgs.xdotool}" "key" "Alt_R"; }
+          Mod+M { spawn "${pkgs.xdotool}/bin/xdotool" "key" "Alt_R"; }
+          Mod+Space { spawn "${pkgs.xdotool}/bin/xdotool" "key" "Alt_R"; }
 
           // Dynamic Cast Target
           Mod+X { set-dynamic-cast-window; }
