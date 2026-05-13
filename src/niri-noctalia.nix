@@ -13,12 +13,6 @@
     config = {
       package = lib.mkForce niriPkg;
 
-      settings.binds = {
-        "Mod+T".spawn-sh = "${weztermPkg}/bin/wezterm";
-        "Mod+D".spawn-sh = "${noctaliaPkg}/bin/noctalia-shell";
-        "Mod+Shift+Slash" = "{ show-hotkey-overlay; }";
-      };
-
       "config.kdl".content = /* kdl */ ''
         binds {
           Mod+Shift+Slash { show-hotkey-overlay; }
