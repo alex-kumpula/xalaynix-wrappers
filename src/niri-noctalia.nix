@@ -19,7 +19,7 @@
         "Mod+Shift+Slash" = "{ show-hotkey-overlay; }";
       };
 
-      config."config.kdl".content = /* kdl */ ''
+      "config.kdl".content = /* kdl */ ''
         binds {
           Mod+Shift+Slash { show-hotkey-overlay; }
 
