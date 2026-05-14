@@ -174,14 +174,6 @@
 
       '';
 
-      # settings.spawn-at-startup = [
-      #   ["${noctaliaPkg}/bin/noctalia-shell"]
-      # ];
-
-      # extraSettings = [
-      #   { include = [ { optional = true; } "~/.config/niri/noctalia.kdl" ]; }
-      # ];
-
       env = {
         GDK_BACKEND = "wayland";
         TESTVAR = "Hello from Niri-Noctalia wrapper! :D";
@@ -189,11 +181,28 @@
 
       extraPackages = [ noctaliaPkg niriPkg weztermPkg ];
 
+      constructFiles.wezterm-desktop = {
+        relPath = "share/applications/wezterm-niri-noctalia.desktop";
+        content = ''
+          [Desktop Entry]
+          Name=WezTerm
+          Comment=Wez's Terminal Emulator
+          Keywords=shell;prompt;command;commandline;cmd;
+          Icon=org.wezfurlong.wezterm
+          StartupWMClass=org.wezfurlong.wezterm
+          TryExec=wezterm
+          Exec=${weztermPkg}/bin/wezterm start --cwd .
+          Type=Application
+          Categories=System;TerminalEmulator;Utility;
+          Terminal=false
+        '';
+      };
+
       buildCommand.wezterm-desktop = {
         after = [ "symlinkScript" "patchSelfReferences" ];
         data = ''
-          mkdir -p "$out/share/applications"
-          cp ${weztermPkg}/share/applications/org.wezfurlong.wezterm.desktop "$out/share/applications/org.wezfurlong.wezterm.desktop"
+          mkdir -p "$out/share/icons"
+          cp -r ${weztermPkg}/share/icons "$out/share"
         '';
       };
       
