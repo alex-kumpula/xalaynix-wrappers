@@ -28,7 +28,7 @@ in
         WRAPPED_ZSH = "${zshPkg pkgs.system}/bin/zsh";
       };
 
-      "wezterm.lua".path = "./wezterm.lua";
+      "wezterm.lua".path = "${./wezterm.lua}";
 
       luaInfo = {
         color_scheme = config.colorScheme;
