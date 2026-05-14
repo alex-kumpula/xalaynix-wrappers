@@ -177,34 +177,34 @@
       env = {
         GDK_BACKEND = "wayland";
         TESTVAR = "Hello from Niri-Noctalia wrapper! :D";
+        XDG_DATA_DIRS = "${weztermPkg}/share:\${XDG_DATA_DIRS:-/run/current-system/sw/share}";
       };
 
       extraPackages = [ noctaliaPkg niriPkg weztermPkg ];
 
-      constructFiles.wezterm-desktop = {
-        relPath = "share/applications/wezterm-niri-noctalia.desktop";
-        content = ''
-          [Desktop Entry]
-          Name=WezTerm
-          Comment=Wez's Terminal Emulator
-          Keywords=shell;prompt;command;commandline;cmd;
-          Icon=${weztermPkg}/share/icons/hicolor/128x128/apps/org.wezfurlong.wezterm.png
-          StartupWMClass=org.wezfurlong.wezterm
-          TryExec=${weztermPkg}/bin/wezterm
-          Exec=${weztermPkg}/bin/wezterm start --cwd .
-          Type=Application
-          Categories=System;TerminalEmulator;Utility;
-          Terminal=false
-        '';
-      };
-
-      buildCommand.wezterm-desktop = {
-        after = [ "symlinkScript" "patchSelfReferences" ];
-        data = ''
-          mkdir -p "$out/share/icons"
-          cp -r ${weztermPkg}/share/icons "$out/share"
-        '';
-      };
+      # constructFiles.wezterm-desktop = {
+      #   relPath = "share/applications/wezterm-niri-noctalia.desktop";
+      #   content = ''
+      #     [Desktop Entry]
+      #     Name=WezTerm
+      #     Comment=Wez's Terminal Emulator
+      #     Keywords=shell;prompt;command;commandline;cmd;
+      #     Icon=${weztermPkg}/share/icons/hicolor/128x128/apps/org.wezfurlong.wezterm.png
+      #     StartupWMClass=org.wezfurlong.wezterm
+      #     TryExec=${weztermPkg}/bin/wezterm
+      #     Exec=${weztermPkg}/bin/wezterm start --cwd .
+      #     Type=Application
+      #     Categories=System;TerminalEmulator;Utility;
+      #     Terminal=false
+      #   '';
+      # };
+      # buildCommand.wezterm-desktop = {
+      #   after = [ "symlinkScript" "patchSelfReferences" ];
+      #   data = ''
+      #     mkdir -p "$out/share/icons"
+      #     cp -r ${weztermPkg}/share/icons "$out/share"
+      #   '';
+      # };
       
       constructFiles.niri-desktop = {
         relPath = "share/wayland-sessions/niri-noctalia.desktop";
