@@ -13,8 +13,6 @@
     config = {
       package = lib.mkForce niriPkg;
 
-      extraPackages = [ weztermPkg ];
-
       "config.kdl".content = /* kdl */ ''
         binds {
           Mod+Shift+Slash { show-hotkey-overlay; }
@@ -186,7 +184,7 @@
         TESTVAR = "Hello from Niri-Noctalia wrapper! :D";
       };
 
-      extraPackages = [ noctaliaPkg niriPkg ];
+      extraPackages = [ noctaliaPkg niriPkg weztermPkg ];
       
       constructFiles.niri-desktop = {
         relPath = "share/wayland-sessions/niri-noctalia.desktop";
