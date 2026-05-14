@@ -180,6 +180,7 @@
       };
 
       prefixVar = [
+        # Make our wrapped Wezterm always show up in launchers
         [
           "XDG_DATA_DIRS"
           ":"
@@ -189,29 +190,10 @@
 
       extraPackages = [ noctaliaPkg niriPkg weztermPkg ];
 
-      # constructFiles.wezterm-desktop = {
-      #   relPath = "share/applications/wezterm-niri-noctalia.desktop";
-      #   content = ''
-      #     [Desktop Entry]
-      #     Name=WezTerm
-      #     Comment=Wez's Terminal Emulator
-      #     Keywords=shell;prompt;command;commandline;cmd;
-      #     Icon=${weztermPkg}/share/icons/hicolor/128x128/apps/org.wezfurlong.wezterm.png
-      #     StartupWMClass=org.wezfurlong.wezterm
-      #     TryExec=${weztermPkg}/bin/wezterm
-      #     Exec=${weztermPkg}/bin/wezterm start --cwd .
-      #     Type=Application
-      #     Categories=System;TerminalEmulator;Utility;
-      #     Terminal=false
-      #   '';
-      # };
-      # buildCommand.wezterm-desktop = {
-      #   after = [ "symlinkScript" "patchSelfReferences" ];
-      #   data = ''
-      #     mkdir -p "$out/share/icons"
-      #     cp -r ${weztermPkg}/share/icons "$out/share"
-      #   '';
-      # };
+      filesToExclude = lib.mkForce [ "share/wayland-sessions/niri.desktop" "bin/niri-session" ];
+      filesToPatch = lib.mkForce [ ];
+      passthru.providedSessions = lib.mkForce ["niri-noctalia"];
+      disableConfigHotReload = true;
       
       constructFiles.niri-desktop = {
         relPath = "share/wayland-sessions/niri-noctalia.desktop";
@@ -225,11 +207,6 @@
         '';
       };
 
-      filesToExclude = lib.mkForce [ "share/wayland-sessions/niri.desktop" "bin/niri-session" ];
-      filesToPatch = lib.mkForce [ ];
-      passthru.providedSessions = lib.mkForce ["niri-noctalia"];
-      disableConfigHotReload = true;
-      
       buildCommand.patchNiriSession = {
         after = [ "symlinkScript" "patchSelfReferences" ];
         data = ''

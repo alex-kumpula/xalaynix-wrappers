@@ -4,16 +4,34 @@ let
 in
 {
   flake.wrappers.wezterm = 
-  { pkgs, wlib, ... }: {
-    imports = [ wlib.modules.default ];
+  { pkgs, lib, wlib, config, ... }: {
+    imports = [ wlib.wrapperModules.wezterm ];
+
+    options = {
+      colorScheme = lib.mkOption {
+        type = lib.types.str;
+        default = "AdventureTime";
+        description = ''
+          Defines the theme used by Wezterm.
+          Specifically, it is what config.color_scheme will be
+          set to in wezterm.lua.
+        '';
+      };
+    };
 
     config = {
 
       package = pkgs.wezterm;
-      flags."--config-file" = "${./.wezterm.lua}";
+
       env = {
         TESTVAR = "Hello :D";
         WRAPPED_ZSH = "${zshPkg pkgs.system}/bin/zsh";
+      };
+
+      "wezterm.lua".path = "./wezterm.lua";
+
+      luaInfo = {
+        color_scheme = config.colorScheme;
       };
 
       constructFiles.wezterm-desktop = {
