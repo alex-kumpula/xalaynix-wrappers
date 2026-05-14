@@ -188,9 +188,9 @@
           Name=WezTerm
           Comment=Wez's Terminal Emulator
           Keywords=shell;prompt;command;commandline;cmd;
-          Icon=org.wezfurlong.wezterm
+          Icon=${weztermPkg}/share/icons/hicolor/128x128/apps/org.wezfurlong.wezterm.png
           StartupWMClass=org.wezfurlong.wezterm
-          TryExec=wezterm
+          TryExec=${weztermPkg}/bin/wezterm
           Exec=${weztermPkg}/bin/wezterm start --cwd .
           Type=Application
           Categories=System;TerminalEmulator;Utility;
