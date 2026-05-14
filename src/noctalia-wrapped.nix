@@ -631,6 +631,10 @@
             enabled = true;
             id = "niri";
           }
+          {
+            enabled = true;
+            id = "wezterm";
+          }
         ];
         enableUserTheming = false;
       };
