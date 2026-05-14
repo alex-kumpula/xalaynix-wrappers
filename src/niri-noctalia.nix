@@ -177,8 +177,15 @@
       env = {
         GDK_BACKEND = "wayland";
         TESTVAR = "Hello from Niri-Noctalia wrapper! :D";
-        XDG_DATA_DIRS = "${weztermPkg}/share:$XDG_DATA_DIRS";
       };
+
+      prefixVar = [
+        [
+          "XDG_DATA_DIRS"
+          ":"
+          "${weztermPkg}/share"
+        ]
+      ];
 
       extraPackages = [ noctaliaPkg niriPkg weztermPkg ];
 
