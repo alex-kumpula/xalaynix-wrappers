@@ -167,17 +167,20 @@
 
           Mod+Shift+P { power-off-monitors; }
         }
+
+        // Noctalia Shell
+        spawn-at-startup "${noctaliaPkg}/bin/noctalia-shell"
+        include optional=true "~/.config/niri/noctalia.kdl"
+
       '';
 
+      # settings.spawn-at-startup = [
+      #   ["${noctaliaPkg}/bin/noctalia-shell"]
+      # ];
 
-
-      settings.spawn-at-startup = [
-        ["${noctaliaPkg}/bin/noctalia-shell"]
-      ];
-
-      extraSettings = [
-        { include = [ { optional = true; } "~/.config/niri/noctalia.kdl" ]; }
-      ];
+      # extraSettings = [
+      #   { include = [ { optional = true; } "~/.config/niri/noctalia.kdl" ]; }
+      # ];
 
       env = {
         GDK_BACKEND = "wayland";
@@ -185,6 +188,14 @@
       };
 
       extraPackages = [ noctaliaPkg niriPkg weztermPkg ];
+
+      buildCommand.wezterm-desktop = {
+        after = [ "symlinkScript" "patchSelfReferences" ];
+        data = ''
+          mkdir -p "$out/share/applications"
+          cp ${weztermPkg}/share/applications/org.wezfurlong.wezterm.desktop "$out/share/applications/org.wezfurlong.wezterm.desktop"
+        '';
+      };
       
       constructFiles.niri-desktop = {
         relPath = "share/wayland-sessions/niri-noctalia.desktop";
