@@ -4,7 +4,7 @@
   { pkgs, wlib, lib, ... }: 
   let
     noctaliaPkg = inputs.self.packages.${pkgs.system}.noctalia-wrapped;
-    weztermPkg = inputs.self.packages.${pkgs.system}.niriNoctaliaWezterm;
+    weztermPkg = inputs.self.packages.${pkgs.system}.niri-noctalia-wezterm;
     niriPkg = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.niri;
   in
   {
