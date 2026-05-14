@@ -13,6 +13,8 @@
     config = {
       package = lib.mkForce niriPkg;
 
+      extraPackages = [ weztermPkg ];
+
       "config.kdl".content = /* kdl */ ''
         binds {
           Mod+Shift+Slash { show-hotkey-overlay; }
