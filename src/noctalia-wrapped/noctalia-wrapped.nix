@@ -636,7 +636,7 @@
             id = "wezterm";
           }
         ];
-        enableUserTheming = false;
+        enableUserTheming = true;
       };
       ui = {
         boxBorderEnabled = false;
@@ -698,6 +698,18 @@
         wallhavenResolutionWidth = "";
         wallhavenSorting = "relevance";
         wallpaperChangeMode = "random";
+      };
+    
+    
+    };
+
+    config.user-templates = {
+      templates = {
+        neovim = {
+          input_path = "~/.config/noctalia/templates/template.lua";
+          output_path = "~/.config/nvim/generated.lua";
+          post_hook = "pkill -SIGUSR1 nvim";
+        };
       };
     };
   };

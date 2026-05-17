@@ -17,9 +17,27 @@
         default = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.niri;
       };
 
+      # noctalia-shell = lib.mkOption {
+      #   type = lib.types.package;
+      #   default = inputs.self.packages.${pkgs.system}.noctalia-wrapped;
+      # };
+
       noctalia-shell = lib.mkOption {
-        type = lib.types.package;
-        default = inputs.self.packages.${pkgs.system}.noctalia-wrapped;
+        type = wlib.types.subWrapperModule ({name, ...}: {
+          imports = [ inputs.self.wrapperModules.noctalia-wrapped ];
+          config = {
+            pkgs = pkgs;
+            env = {
+              XDG_CONFIG_HOME = {
+                data = "$HOME/.config/${config.uniqueName}";
+                esc-fn = toString;
+              };
+            };
+          };
+        });
+        default = {
+
+        };
       };
 
       wezterm = lib.mkOption {
@@ -197,7 +215,7 @@
         }
 
         // Noctalia Shell
-        spawn-at-startup "${config.noctalia-shell}/bin/noctalia-shell"
+        spawn-at-startup "${config.noctalia-shell.wrapper}/bin/noctalia-shell"
         include optional=true "~/.config/niri/noctalia.kdl"
 
       '';
@@ -216,7 +234,7 @@
         ]
       ];
 
-      extraPackages = [ config.noctalia-shell config.niri config.wezterm.wrapper ];
+      extraPackages = [ config.noctalia-shell.wrapper config.niri config.wezterm.wrapper ];
 
       filesToExclude = lib.mkForce [ "share/wayland-sessions/niri.desktop" "bin/niri-session" ];
       filesToPatch = lib.mkForce [ ];
