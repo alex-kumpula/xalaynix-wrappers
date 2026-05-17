@@ -7,6 +7,11 @@
 
     options = {
 
+      uniqueName = lib.mkOption {
+        type = lib.types.str;
+        default = "8d434089-f79f-4da4-b199-b235d6dfcfe4";
+      };
+
       niri = lib.mkOption {
         type = lib.types.package;
         default = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.niri;
@@ -17,7 +22,7 @@
         default = inputs.self.packages.${pkgs.system}.noctalia-wrapped;
       };
 
-      wezterm-submodule = lib.mkOption {
+      wezterm = lib.mkOption {
         type = wlib.types.subWrapperModule ({name, ...}: {
           imports = [ inputs.self.wrapperModules.wezterm ];
           config = {
@@ -47,7 +52,7 @@
           Mod+Tab repeat=false { toggle-overview; }
 
           // Spawn Applications
-          Mod+T hotkey-overlay-title="Open a Terminal: wezterm" { spawn "${config.wezterm-submodule.wrapper}/bin/wezterm"; }
+          Mod+T hotkey-overlay-title="Open a Terminal: wezterm" { spawn "${config.wezterm.wrapper}/bin/wezterm"; }
           Mod+E hotkey-overlay-title="Open a File Browser: wezterm" { spawn "${pkgs.xfce.thunar}/bin/thunar" "-w"; }
           Mod+Shift+C { spawn "${pkgs.wl-color-picker}/bin/wl-color-picker"; }
         
@@ -207,11 +212,11 @@
         [
           "XDG_DATA_DIRS"
           ":"
-          "${config.wezterm-submodule.wrapper}/share"
+          "${config.wezterm.wrapper}/share"
         ]
       ];
 
-      extraPackages = [ config.noctalia-shell config.niri config.wezterm-submodule.wrapper ];
+      extraPackages = [ config.noctalia-shell config.niri config.wezterm.wrapper ];
 
       filesToExclude = lib.mkForce [ "share/wayland-sessions/niri.desktop" "bin/niri-session" ];
       filesToPatch = lib.mkForce [ ];
