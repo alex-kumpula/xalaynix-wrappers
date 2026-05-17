@@ -13,20 +13,6 @@
     config = {
       package = lib.mkForce niriPkg;
 
-      argv0type = command_string: ''
-        exec -a "$0" ${pkgs.bubblewrap}/bin/bwrap \
-          --bind / / \
-          --dev /dev \
-          --proc /proc \
-          ${command_string}
-      '';
-
-      runShell = [
-        ''
-          mkdir -p $HOME/testdir
-        ''
-      ];
-
       "config.kdl".content = /* kdl */ ''
         binds {
           Mod+Shift+Slash { show-hotkey-overlay; }
