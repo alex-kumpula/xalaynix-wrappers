@@ -7,7 +7,7 @@
   in
   {
     imports = [ wlib.wrapperModules.noctalia-shell ];
-    config.package = lib.mkForce noctaliaPkg;
+    config.package = noctaliaPkg;
     config.env = {
       TESTVAR = "Hello from wrapped Noctalia! :D";
     };

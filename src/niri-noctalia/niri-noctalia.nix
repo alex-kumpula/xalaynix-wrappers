@@ -1,17 +1,40 @@
 { inputs, ... }:
 {
   flake.wrappers.niri-noctalia = 
-  { pkgs, wlib, lib, ... }: 
-  let
-    noctaliaPkg = inputs.self.packages.${pkgs.system}.noctalia-wrapped;
-    weztermPkg = inputs.self.packages.${pkgs.system}.niri-noctalia-wezterm;
-    niriPkg = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.niri;
-  in
+  { pkgs, wlib, lib, config, ... }: 
   {
     imports = [ wlib.wrapperModules.niri ];
-    
+
+    options = {
+
+      niri = lib.mkOption {
+        type = lib.types.package;
+        default = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.niri;
+      };
+
+      noctalia-shell = lib.mkOption {
+        type = lib.types.package;
+        default = inputs.self.packages.${pkgs.system}.noctalia-wrapped;
+      };
+
+      wezterm-submodule = lib.mkOption {
+        type = wlib.types.subWrapperModule ({name, ...}: {
+          imports = [ inputs.self.wrapperModules.wezterm ];
+          config = {
+            pkgs = pkgs;
+            colorScheme = "Noctalia";
+          };
+        });
+        default = {
+
+        };
+      };
+
+    };
+
+
     config = {
-      package = lib.mkForce niriPkg;
+      package = lib.mkForce config.niri;
 
       "config.kdl".content = /* kdl */ ''
         binds {
@@ -24,7 +47,7 @@
           Mod+Tab repeat=false { toggle-overview; }
 
           // Spawn Applications
-          Mod+T hotkey-overlay-title="Open a Terminal: wezterm" { spawn "${weztermPkg}/bin/wezterm"; }
+          Mod+T hotkey-overlay-title="Open a Terminal: wezterm" { spawn "${config.wezterm-submodule.wrapper}/bin/wezterm"; }
           Mod+E hotkey-overlay-title="Open a File Browser: wezterm" { spawn "${pkgs.xfce.thunar}/bin/thunar" "-w"; }
           Mod+Shift+C { spawn "${pkgs.wl-color-picker}/bin/wl-color-picker"; }
         
@@ -169,7 +192,7 @@
         }
 
         // Noctalia Shell
-        spawn-at-startup "${noctaliaPkg}/bin/noctalia-shell"
+        spawn-at-startup "${config.noctalia-shell}/bin/noctalia-shell"
         include optional=true "~/.config/niri/noctalia.kdl"
 
       '';
@@ -184,11 +207,11 @@
         [
           "XDG_DATA_DIRS"
           ":"
-          "${weztermPkg}/share"
+          "${config.wezterm-submodule.wrapper}/share"
         ]
       ];
 
-      extraPackages = [ noctaliaPkg niriPkg weztermPkg ];
+      extraPackages = [ config.noctalia-shell config.niri config.wezterm-submodule.wrapper ];
 
       filesToExclude = lib.mkForce [ "share/wayland-sessions/niri.desktop" "bin/niri-session" ];
       filesToPatch = lib.mkForce [ ];
@@ -213,7 +236,7 @@
           # Remove the symlink to the original
           rm -f "$out/bin/niri-session"
           # Copy the original script
-          cp ${niriPkg}/bin/niri-session "$out/bin/niri-session"
+          cp ${config.niri}/bin/niri-session "$out/bin/niri-session"
           chmod +w "$out/bin/niri-session"
           # Replace all bare 'niri' with absolute path to wrapped binary
           substituteInPlace "$out/bin/niri-session" \
@@ -232,7 +255,7 @@
           # Remove the symlink to the original
           rm -f "$out/share/systemd/user/niri.service"
           # Copy the original script
-          cp ${niriPkg}/share/systemd/user/niri.service "$out/share/systemd/user/niri-noctalia.service"
+          cp ${config.niri}/share/systemd/user/niri.service "$out/share/systemd/user/niri-noctalia.service"
           chmod +w "$out/share/systemd/user/niri-noctalia.service"
           # Replace all bare 'niri' with absolute path to wrapped binary
           sed -i 's|^ExecStart=.*|ExecStart=${placeholder "out"}/bin/niri --session|' "$out/share/systemd/user/niri-noctalia.service"
@@ -245,7 +268,7 @@
           # Remove the symlink to the original
           rm -f "$out/share/systemd/user/niri-shutdown.target"
           # Copy the original script
-          cp ${niriPkg}/share/systemd/user/niri-shutdown.target "$out/share/systemd/user/niri-noctalia-shutdown.target"
+          cp ${config.niri}/share/systemd/user/niri-shutdown.target "$out/share/systemd/user/niri-noctalia-shutdown.target"
         '';
       };
     };
