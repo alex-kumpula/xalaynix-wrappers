@@ -1,16 +1,48 @@
 { inputs, ... }:
 {
   flake.wrappers.noctalia-wrapped = 
-  { pkgs, wlib, lib, ... }: 
+  { pkgs, wlib, lib, config, ... }: 
   let
     noctaliaPkg = inputs.noctalia.packages.${pkgs.system}.default;
   in
   {
     imports = [ wlib.wrapperModules.noctalia-shell ];
+
     config.package = noctaliaPkg;
+
     config.env = {
       TESTVAR = "Hello from wrapped Noctalia! :D";
+      NOCTALIA_CONFIG_DIR = lib.mkForce {
+        data = "${config.outOfStoreConfig}";
+        esc-fn = toString;
+      };
     };
+
+    config.outOfStoreConfig = "$HOME/testNoct";
+
+    config.constructFiles.copy-noctalia-shell-config.content = lib.mkForce ''
+      #!${pkgs.bash}/bin/bash
+      mkdir -p ${config.outOfStoreConfig} && \
+      cp -r ${config.configPlaceholder}/. ${config.outOfStoreConfig} && \
+      find ${config.outOfStoreConfig} ! -perm -u+w -exec chmod u+w {} +
+      # Allow environment variables like $HOME to be used in the user-templates.toml file
+      # by substituting them with their values
+      ${pkgs.envsubst}/bin/envsubst -i ${config.outOfStoreConfig}/user-templates.toml -o ${config.outOfStoreConfig}/user-templates.toml
+    '';
+
+    config.user-templates = {
+      templates = {
+        gtk3 = {
+          input_path = lib.mkDefault "${./user-templates/gtk3.css}";
+          output_path = lib.mkDefault "$HOME/.config/gtk-3.0/noctalia.css";
+        };
+        gtk4 = {
+          input_path = lib.mkDefault "${./user-templates/gtk4.css}";
+          output_path = lib.mkDefault "$HOME/.config/gtk-4.0/noctalia.css";
+        };
+      };
+    };
+
     config.settings = {
       appLauncher = {
         autoPasteClipboard = false;
@@ -703,14 +735,9 @@
     
     };
 
-    config.user-templates = {
-      templates = {
-        neovim = {
-          input_path = "~/.config/noctalia/templates/template.lua";
-          output_path = "~/.config/nvim/generated.lua";
-          post_hook = "pkill -SIGUSR1 nvim";
-        };
-      };
-    };
+    
+
+    
+    
   };
 }

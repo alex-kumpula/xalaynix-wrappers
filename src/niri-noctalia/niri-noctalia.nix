@@ -12,26 +12,25 @@
         default = "8d434089-f79f-4da4-b199-b235d6dfcfe4";
       };
 
+      profileParentDirectory = lib.mkOption {
+        type = lib.types.str;
+        default = "$HOME/.config";
+      };
+
       niri = lib.mkOption {
         type = lib.types.package;
         default = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.niri;
       };
-
-      # noctalia-shell = lib.mkOption {
-      #   type = lib.types.package;
-      #   default = inputs.self.packages.${pkgs.system}.noctalia-wrapped;
-      # };
 
       noctalia-shell = lib.mkOption {
         type = wlib.types.subWrapperModule ({name, ...}: {
           imports = [ inputs.self.wrapperModules.noctalia-wrapped ];
           config = {
             pkgs = pkgs;
-            env = {
-              XDG_CONFIG_HOME = {
-                data = "$HOME/.config/${config.uniqueName}";
-                esc-fn = toString;
-              };
+            outOfStoreConfig = lib.mkForce "${config.profileParentDirectory}/${config.uniqueName}/.config/noctalia";
+            user-templates.templates = {
+              gtk3.output_path = "${config.profileParentDirectory}/${config.uniqueName}/.config/gtk-3.0/noctalia.css";
+              gtk4.output_path = "${config.profileParentDirectory}/${config.uniqueName}/.config/gtk-4.0/noctalia.css";
             };
           };
         });
