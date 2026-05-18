@@ -3,7 +3,7 @@ let
   zshPkg = system: inputs.self.packages.${system}.zsh;
 in
 {
-  flake.wrappers.wezterm = 
+  flake.wrappers.thunar = 
   { pkgs, lib, wlib, config, ... }: {
     imports = [ wlib.modules.default ];
 
