@@ -10,7 +10,7 @@ in
 
     config = {
 
-      package = pkgs.thunar;
+      package = pkgs.xfce.thunar;
 
       constructFiles.wezterm-desktop = {
         relPath = "share/applications/org.wezfurlong.wezterm.desktop";
