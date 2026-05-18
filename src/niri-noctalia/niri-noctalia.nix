@@ -77,16 +77,18 @@
 
       prefixVar = [
         # Make our wrapped Wezterm always show up in launchers
-        [
-          "XDG_DATA_DIRS"
-          ":"
-          "${config.wezterm.wrapper}/share"
-        ]
+
         [
           "XDG_DATA_DIRS"
           ":"
           "${config.thunar.wrapper}/share"
         ]
+        [
+          "XDG_DATA_DIRS"
+          ":"
+          "${config.wezterm.wrapper}/share"
+        ]
+        
       ];
 
       "config.kdl".content = /* kdl */ ''
