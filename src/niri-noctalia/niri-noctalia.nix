@@ -83,7 +83,7 @@
           "${config.wezterm.wrapper}/share"
         ]
         [
-          "XDG_CONFIG_DIRS"
+          "XDG_DATA_DIRS"
           ":"
           "${config.thunar.wrapper}/share"
         ]
