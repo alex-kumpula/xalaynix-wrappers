@@ -39,6 +39,18 @@
         };
       };
 
+      thunar = lib.mkOption {
+        type = wlib.types.subWrapperModule ({name, ...}: {
+          imports = [ inputs.self.wrapperModules.thunar ];
+          config = {
+            pkgs = pkgs;
+          };
+        });
+        default = {
+
+        };
+      };
+
       wezterm = lib.mkOption {
         type = wlib.types.subWrapperModule ({name, ...}: {
           imports = [ inputs.self.wrapperModules.wezterm ];
@@ -58,6 +70,25 @@
     config = {
       package = lib.mkForce config.niri;
 
+      env = {
+        GDK_BACKEND = "wayland";
+        TESTVAR = "Hello from Niri-Noctalia wrapper! :D";
+      };
+
+      prefixVar = [
+        # Make our wrapped Wezterm always show up in launchers
+        [
+          "XDG_DATA_DIRS"
+          ":"
+          "${config.wezterm.wrapper}/share"
+        ]
+        [
+          "XDG_CONFIG_DIRS"
+          ":"
+          "${config.thunar.wrapper}/share"
+        ]
+      ];
+
       "config.kdl".content = /* kdl */ ''
         binds {
           Mod+Shift+Slash { show-hotkey-overlay; }
@@ -70,7 +101,7 @@
 
           // Spawn Applications
           Mod+T hotkey-overlay-title="Open a Terminal: wezterm" { spawn "${config.wezterm.wrapper}/bin/wezterm"; }
-          Mod+E hotkey-overlay-title="Open a File Browser: wezterm" { spawn "${pkgs.xfce.thunar}/bin/thunar" "-w"; }
+          Mod+E hotkey-overlay-title="Open a File Browser: wezterm" { spawn "${config.thunar.wrapper}/bin/thunar" "-w"; }
           Mod+Shift+C { spawn "${pkgs.wl-color-picker}/bin/wl-color-picker"; }
         
           // Discord Muting
@@ -219,19 +250,7 @@
 
       '';
 
-      env = {
-        GDK_BACKEND = "wayland";
-        TESTVAR = "Hello from Niri-Noctalia wrapper! :D";
-      };
-
-      prefixVar = [
-        # Make our wrapped Wezterm always show up in launchers
-        [
-          "XDG_DATA_DIRS"
-          ":"
-          "${config.wezterm.wrapper}/share"
-        ]
-      ];
+      
 
       extraPackages = [ config.noctalia-shell.wrapper config.niri config.wezterm.wrapper ];
 

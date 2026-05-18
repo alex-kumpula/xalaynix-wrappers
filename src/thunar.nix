@@ -12,7 +12,7 @@ in
 
       package = pkgs.xfce.thunar;
 
-      constructFiles.wezterm-desktop = {
+      constructFiles.thunar-desktop = {
         relPath = "share/applications/org.wezfurlong.wezterm.desktop";
         content = ''
           [Desktop Entry]
@@ -26,6 +26,14 @@ in
           Type=Application
           Categories=System;TerminalEmulator;Utility;
           Terminal=false
+        '';
+      };
+
+      buildCommand.patchDesktopFile = {
+        after = [ "symlinkScript" "patchSelfReferences" ];
+        data = ''
+          # Replace all bare 'thunar' with absolute path to wrapped binary
+          sed -i 's|^Exec=thunar|Exec=${config.package}/bin/thunar|g' "${placeholder "out"}/share/applications/thunar.desktop"
         '';
       };
 
