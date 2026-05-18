@@ -44,6 +44,9 @@
           imports = [ inputs.self.wrapperModules.thunar ];
           config = {
             pkgs = pkgs;
+            env = {
+              XDG_CONFIG_HOME = "${config.profileParentDirectory}/${config.uniqueName}/.config";
+            };
           };
         });
         default = {
@@ -88,7 +91,17 @@
           ":"
           "${config.wezterm.wrapper}/share"
         ]
-        
+        [
+          "PATH"
+          ":"
+          "${config.thunar.wrapper}/bin"
+        ]
+        [
+          "PATH"
+          ":"
+          "${config.wezterm.wrapper}/bin"
+        ]
+
       ];
 
       "config.kdl".content = /* kdl */ ''
