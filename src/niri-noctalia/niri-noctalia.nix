@@ -45,7 +45,10 @@
           config = {
             pkgs = pkgs;
             env = {
-              XDG_CONFIG_HOME = "${config.profileParentDirectory}/${config.uniqueName}/.config";
+              XDG_CONFIG_HOME = {
+                data = "${config.profileParentDirectory}/${config.uniqueName}/.config";
+                esc-fn = toString;
+              };
             };
           };
         });
